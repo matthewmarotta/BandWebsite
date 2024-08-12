@@ -1,0 +1,553 @@
+/*Notes for website*/
+/*Universal classes*/
+html { 
+    height: 100%; 
+}
+
+h1 {
+    font-weight: bold;
+    color: aliceblue;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;;
+}
+
+body {
+    height: 100%;
+}
+
+.text-body a {
+    color: black;
+}
+
+p {
+    margin-top: 1rem;
+  }
+
+a {
+    text-decoration: none; 
+  }
+
+a:hover {
+        text-decoration: none;
+        color: red;
+    }
+
+
+/*Start of gigs page elements*/
+.mt-h1-Gigs-page {
+    margin-top: 1.25rem !important; 
+}
+    
+.adbanner1 {
+    margin-top: 1.25rem !important;
+    width: 14rem !important;
+    height: 50rem !important;
+    background-color: black;
+    padding: none !important;
+    }
+    
+.adbanner2 {
+    margin-top: 1.25rem !important;
+    width: 14rem !important;
+    height: 50rem !important;
+    background-color: black;    
+    }
+
+  .nav-icon-gigs-page {
+    max-height: 100px;
+    margin: 0px 0px -10px 40px;
+} 
+/*End of gigs page elements*/
+
+
+/*Merch Page Classes/IDs*/
+
+.nav-icon-merch-page {
+    max-height: 100px;
+    margin: 0px 0px 0px 10px;
+}
+
+.top-nav-bar-merchpage {
+    position: relative;
+    background: white;
+    border-bottom: 0.188rem solid black;
+    width: 100%;
+    z-index: 2;  
+    justify-content: space-between;
+}
+
+.background-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(227, 227, 227)), url('http://localhost/BandWebsite/Images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
+.Merch-site-header {
+    align-items: center;
+    padding-bottom: 2rem;
+    justify-content: center;
+    text-align: center;
+}
+
+/*Styles for the cart*/
+
+/*for checkout button*/
+.disabled {
+    color: grey; /* You can adjust the color for disabled state */
+    pointer-events: none; /* Prevent clicking on disabled button */
+ }
+ 
+ 
+ /*for checkout button*/
+ .enabled {
+    color: blue;
+    pointer-events: visible;
+ }
+ 
+ 
+ .clear-button {
+ margin-left: auto;
+ }
+ 
+ .cart-empty-status {
+    display: none;
+ }
+ 
+ .cart-grid {
+    display: flex;
+flex-direction: column;
+justify-content: center;
+ }
+ 
+ .cart-item1 {
+    display: none;
+ }
+
+ .class-descriptor {
+    background-color: red;
+ }
+
+ .cart-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: solid black 0.1rem;
+    padding-right: 1rem;
+    margin-bottom: 0.5rem;
+ }
+
+ .cart-image {
+    max-width: 100%;
+    height: auto;
+    
+    width: 4rem;
+    margin: 1rem;
+ }
+
+ .cart-item-name {
+    text-align: left;
+    word-wrap: break-word;
+    margin: 1rem;
+ }
+
+
+ .cart-item-price {
+    text-align: left;
+    word-wrap: break-word;
+    margin: 1rem;
+ }
+
+ .cart-item-quantity {
+    text-align: left;
+    word-wrap: break-word;
+    margin: 1rem;
+ }
+ 
+ /*Styles for the date picker*/
+ .date-picker-container {
+    margin: 20px 0;
+}
+.date-picker {
+    margin-right: 10px;
+}
+.invalid-date {
+    border-color: red;
+}
+.valid-date {
+    border-color: green;
+}
+/*Styles for the date picker*/
+
+ .cart-bar {
+    position: sticky; top:0; z-index:3; display: inline-flex; float: right; padding: 1rem; background-color: aliceblue;
+ }
+
+
+ .expanded-cart {
+    max-width: 50rem; 
+    height:auto; 
+    position:fixed; 
+    right:0; 
+    top: 4.6rem; 
+    display: none; 
+    padding: 1rem; 
+    background-color: aliceblue;
+    z-index: 3;
+    }
+ 
+ 
+ .cart-bar ul li {
+   list-style: none;
+   
+ }
+ 
+ 
+ .cart-bar ul li a {
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    /*cursor: url("/Users/User/Desktop/WebsiteProject/Images/mousepointerhover.png"), auto;*/
+ }
+ 
+ 
+ 
+ 
+ .cart-bar ul li .cart-wrapper:hover a,
+ .cart-bar ul li .cart-wrapper:hover .reservation-button/*replacewith<p>reservation*/ {
+    color: red;
+    cursor: pointer;
+ }
+
+ /*end of grid layout for merch results pages*/
+
+
+.search-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    max-width: 600px; /* Adjust the max-width as needed */
+    margin: 0 auto;
+}
+
+.form-control {   
+    margin-top: 9px !important;
+    border: 1px solid black !important;
+    border-top-left-radius: 20px !important;
+    border-bottom-left-radius: 20px !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    box-shadow: none !important;
+    flex-grow: 1;
+}
+
+.form-control:hover {
+    border: 2px solid black !important;
+}
+
+.input-group-text {
+    background: black !important;
+    border: 1px solid black !important;
+    margin: 9px 10px 0px 0px !important;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-top-right-radius: 20px !important;
+    border-bottom-right-radius: 20px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10.1px 10px;
+    cursor: pointer;
+}
+
+.fa-search {
+    color: white; 
+}
+
+.select-car-type-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fa-chevron-down {
+    margin-left: 1rem;
+    font-size: 1.5rem;
+}
+
+.choose-car-type-row {
+display: none;
+justify-content: center; 
+align-items: center;
+}
+
+.car-selector-text {
+padding: 0.5rem;
+color:black;
+outline: white;
+background: white;
+border-radius: 0.3rem;
+}
+
+.car-selector-text:hover {
+border-color: green;
+color: green;
+}
+      
+.car-type-selector-element {
+display: inline-flex;
+flex-direction: column;
+align-items: center;
+margin-bottom: 3rem;
+}
+
+.car-type-image {
+    width: 6rem;
+}
+  
+.car-type-image-seperator {
+    width: 6rem;
+    margin: 0 7rem 0 7rem;
+}
+
+
+.content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    background-color:  rgb(238, 238, 238);  
+}
+
+.guarantees-row {
+    display: inline-flex;
+}
+
+.guarantees-element {
+    display: block;
+    margin: 5rem 5rem;
+}
+
+.guarantees-paragraph {
+    text-align: left;
+    word-wrap: break-word;
+    max-width: 9rem;
+}
+
+.fa-calendar-check {
+    font-size: 2rem;
+    margin: 0 0 1.5rem 2.3rem;
+}
+
+.fa-credit-card {
+    font-size: 2rem;
+    margin: 0 0 1.5rem 2.3rem;
+}
+
+.fa-lock {
+    font-size: 2rem;
+    margin: 0 0 1.5rem 2.3rem;
+}
+
+/*brand display css*/
+.brand-display {
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: center;
+}
+/*.slide-header {
+    
+}*/
+
+.slide-images-row {
+    display: inline;
+    padding-bottom: 2rem;
+}
+
+.slide-button {
+    border: none; 
+    padding: 0; 
+    margin: 0; 
+    background: none;
+}
+
+.slide-image:hover {
+transform: scale(1.1);
+}
+
+.slide-image {
+    width: 6rem;
+    margin: 1rem 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0.5rem 0.5rem 0.5rem;
+}
+/*end of brand display css*/
+
+.category-site-header {
+    display: none;
+}
+
+/*Grid layout for merch results pages*/
+.grid { 
+   /* flex-wrap: wrap; */
+   display: inline-flex;
+    align-items: center;
+    justify-content: center; 
+    display: none;
+}
+
+.grid-item {
+    background-color: rgb(190, 190, 190);
+    border: solid grey 0.1rem;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin: 2rem;
+    justify-content: center; 
+    align-items: center;
+}
+
+.item-price {
+    font-weight: bold;
+    font-size: medium;
+}
+
+.item-description {
+    font-size: large;
+}
+
+.status-available {
+    font-size: small;
+    font-style: italic;
+}
+
+.grid-item:hover{
+    border: solid green 0.3rem;
+}
+
+.grid-image {
+    padding-right: none; 
+    width: 25rem;
+    margin-bottom: 0rem;
+}
+
+.add-to-cart-button-Available {
+    flex-wrap: wrap;
+    margin: 5rem 10rem 0 0rem;
+}
+
+.add-to-cart-button-Unavailable {
+    flex-wrap: wrap;
+    pointer-events: none;
+    color: grey;
+    margin: 5rem 10rem 0 0rem;
+}
+/*end of grid layout for merch results pages*/
+
+
+/*Order confirmation page elements*/
+.form1 { 
+    border: solid black 0.2rem;
+    border-radius: 0.5rem;
+    margin: 4rem 2rem 0rem 0rem;
+}
+
+.customer-info-heading {
+    margin-left: 1rem;
+}
+
+.form {
+    display: inline-flex;
+    align-items: flex-start;  
+    flex-direction: column;
+    width: 100%;
+    margin-left: 1rem; 
+    margin-bottom: 1rem;
+}
+
+#order-cancelled-message {
+    display: none;
+    margin-top: 2rem;
+}
+
+#order-cancelled-image {
+    display: none;
+}
+
+#confirm-purchase-message {
+    display: none;
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
+/*End of order confirmation page elements*/
+
+
+/*Responsive elements*/
+@media only screen and (max-width: 61.25rem) {
+   
+    .slider 
+    {
+        width: 100%;
+        margin-left: 0;
+    }
+    
+    .side-menu {
+        width: 40%;
+        z-index: 20;
+        top: 10.2rem;
+        position: fixed;
+        display:none;
+    }
+
+    .side-menu ul li ul {
+        top: 10.2rem;
+    }
+
+    .side-menu ul li:hover > ul {
+        margin-left: 30%;
+        top: 10.2rem;   
+    }
+
+    #menu-btn {
+        display:block;
+        font-size: 2rem;
+        margin: 1rem;
+        color: black;
+    }
+}
+
+@media only screen and (max-width: 33.95rem) {
+top-nav-bar-merchpage {
+    margin: 0rem 0rem -10rem 0rem;
+    width: 100%;
+}
+/*.cart-bar ul {
+    display: block;
+    margin-top: 11.8rem;   
+}
+
+.cart-bar ul li{
+    margin: 1rem 1rem 1rem 1rem;
+    width: 100%;
+}
+
+.cart-wrapper {
+    width: 100%;    
+}*/
+}
+  
+  
+
+  
+
+  
+    
+    

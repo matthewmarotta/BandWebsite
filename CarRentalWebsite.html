@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="CSS4SWWEBSITE2.css" type="text/css"> 
+    <title>My website</title>
+</head>
+<body>
+
+    <!--reservation button-->  
+    <div class="cart-bar">
+        <ul>
+        <li>
+            <div class="cart-wrapper" onclick="expandcart()">
+                <a class="reservation-button">Cart</a>
+                <a href="#" id="total2"> 
+           $0.00
+            </div></a>
+        </li>
+        </ul>
+        </div>
+     <div class="expanded-cart" id="cart-expanded">
+        <div class="cart-grid"> 
+            <div class="cart-item" id="cart-item1">
+               <img src="" class="cart-image" id="cart-image">
+               <p class="cart-item-name" id="cart-item-name"></p>
+               <p class="cart-item-price" id="item-price"></p>
+            </div>
+            <h2 id="cart-empty-status">No Items In Cart</h2>
+        <div class="total-checkout-container">
+        <p class="total" id="total1">Total: 0.00</p><button class="clear-button">Clear</button>
+        </div>
+     
+     
+        <form action="OrderConfirmationPage.html">
+            <button id="checkout-button" class="checkout-button enabled" type="submit">Checkout</button>
+        </form>
+        </div>
+        </div>
+       <!--end of reservation button-->
+     
+    <div class="top-nav-bar-merchpage">
+       <div class="background-image-container"></div>
+      
+       
+        
+       <a href="http://localhost/CarRentalWebsiteFinalXAMPP/Homepage.html">   
+       <img class="nav-icon-merch-page" src="Images/LOGO STREET WORMS - RESIZED (NAV-ICON).png">
+       </a> 
+
+       
+       
+ 
+    <div id="main-header" class="Merch-site-header">
+            <h1>Welcome to StreetWorms Merch Store</h1>
+        
+            <div class="search-box" style="position: relative;">
+                <input type="search" class="form-control" id="form" placeholder="Search for model name, brand or type">
+                <ul id="recent-searches" class="recent-searches" style="list-style: none; margin: 0;
+                padding: 0;
+                border-top: none;
+                max-height: 70px;
+                overflow-y: scroll;
+                position: absolute;
+                width: 100%;
+                background: white;
+                display: none;
+                top: 100%;  /* Ensure it appears just below the input field */
+                left: 0;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+                cursor: pointer;
+                border: 1px solid black !important;
+                border-top-left-radius: 0 !important;
+                border-bottom-left-radius: 20px !important;
+                border-top-right-radius: 0 !important;
+                border-bottom-right-radius: 20px !important;
+                box-shadow: none !important;">
+                
+                </ul>
+                <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>   
+            
+            
+    </div> 
+    
+
+        <div class = "select-car-type-text">
+        <h2 class = "select-car-type-text">Or select a car type</h2><i class="fa fa-chevron-down"></i> 
+        </div>
+        
+
+        
+        <div class="choose-car-type-row">
+
+       
+        <div class="car-type-selector-element" id="sedan"> 
+        <button style="border: none; padding: 0; margin: 0; background: none;"><img  src="Images/sedan.png" id="car-type-image1" class="car-type-image"></button>
+        <button class="car-selector-text">Sedan</button>
+        </div>
+  
+        <div class="car-type-selector-element" id="van"> 
+        <button style="border: none; padding: 0; margin: 0; background: none;"><img src="Images/van.png" id="car-type-image2" class="car-type-image-seperator"></button>
+        <button class="car-selector-text">Van</button>
+        </div>
+        
+        <div class="car-type-selector-element" id="SUV"> 
+        <button style="border: none; padding: 0; margin: 0; background: none;"><img src="Images/SUV.png" id="car-type-image3" class="car-type-image"></button>
+        <button class="car-selector-text">SUV</button>
+        </div>
+  
+        </div>
+
+ 
+    
+    </div>
+
+
+      <div class="brand-display">
+       <h2 class="slide-header">Explore our range from the following brands!</h2>  
+       <div class="slide-images-row">
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><img src="Images\bmw.png" class="slide-image" id="bmw"></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><img src="Images\ford.png" class="slide-image" id="ford"></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><img src="Images\Mazda.png" class="slide-image" id="mazda"></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><img src="Images\suzuki.png" class="slide-image" id="suzuki"></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><img src="Images\toyota.png" class="slide-image" id="toyota"></button>
+       
+        
+        </div>
+        <!--80x40px pics-->
+      </div>
+    <div class="content">
+        
+      
+      
+      <div class="guarantees-row">
+      
+      <div class="guarantees-element"> 
+      <i class="fa fa-calendar-check"></i>
+      <h4>Flexibility</h4>
+      <p class="guarantees-paragraph">You can cancel Anytime!</p>
+      </div>
+
+      <div class="guarantees-element"> 
+      <i class="fa fa-credit-card"></i>
+      <h4>Honesty</h4>
+      <p class="guarantees-paragraph">No funny business, we provide upfront fees.</p>
+      </div>
+
+      <div class="guarantees-element"> 
+      <i class="fa fa-lock"></i>
+      <h4>Security</h4>
+      <p class="guarantees-paragraph">Do not use our cars for armed robbery!</p>
+      </div>
+
+      </div>
+
+     </div>
+   
+   
+     </div>
+     <!--Product Category Section-->
+     <h2 id="category-header" class="category-site-header"><br></h2>
+
+        <div class="grid">
+            <div class ="grid-item" id="grid-item1">  
+                <img src="" class="grid-image" id="grid-image1">
+                <p id="item-description1" class="item-description"></p>
+                <p id="item-price1" class="item-price"></p>
+                <p id="item-availability1"></p>
+               
+            </div>
+            
+            <div class ="grid-item" id="grid-item2">  
+                <img src="" class="grid-image"  id="grid-image2">
+                <p id="item-description2" class="item-description"></p>
+                <p id="item-price2" class="item-price"></p>
+                <p id="item-availability2"></p>
+               
+            </div>
+
+            <div class ="grid-item" id="grid-item3">  
+                <img src="" class="grid-image" id="grid-image3">
+                <p id="item-description3" class="item-description"></p>
+                <p id="item-price3" class="item-price"></p>
+                <p id="item-availability3"></p>
+                
+            </div>
+        </div>
+        <div class="grid">
+            <div class ="grid-item" id="grid-item4">  
+                <img src="" class="grid-image" id="grid-image4">
+                <p id="item-description4" class="item-description"></p>
+                <p id="item-price4" class="item-price"></p>
+                <p id="item-availability4"></p>
+            
+            </div>
+    
+            <div class ="grid-item" id="grid-item5">  
+                <img src="" class="grid-image" id="grid-image5">
+                <p id="item-description5" class="item-description"></p>
+                <p id="item-price5" class="item-price"></p>
+                <p id="item-availability5"></p>
+                
+            </div>
+        </div>
+    
+</div>
+
+</div>
+   
+
+   
+
+
+    <!--Bootstrap Javascript plugin file-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+
+<!--Scripts for hiding guarantees and loading different category page grids based on which link was clicked-->
+<script>
+function hideContent(event) {
+    if (event.target.closest('.car-type-selector-element')) {
+  
+    var content = document.querySelectorAll(".content") 
+    content.forEach(function(content) {
+        content.style.display = "none"
+    });
+
+    var grids = document.querySelectorAll(".grid");
+    grids.forEach(function(grid) {
+        grid.style.display = "flex";
+    });
+
+    var headers = document.querySelectorAll(".category-site-header");
+    headers.forEach(function(header) {
+         header.style.display = "block";
+         header.style.textAlign = "center";
+    });
+    cleargrid();
+    }
+}
+document.addEventListener("click", hideContent);
+
+</script>
+
+<!-- Script to hide content and show the grid -->
+<script>
+    function hideContent(event) {
+        var clickedElement = event.target;
+
+        // Check if the clicked element matches any of the selectors
+        if (clickedElement.closest('.car-type-selector-element') || 
+            clickedElement.closest('.slide-image') ||
+            clickedElement.closest('.fa-search')) {
+            
+            
+
+            var content = document.querySelectorAll(".content");
+            content.forEach(function(contentItem) {
+                contentItem.style.display = "none";
+            });
+        
+            var grids = document.querySelectorAll(".grid");
+            grids.forEach(function(grid) {
+                grid.style.display = "flex";
+            });
+            
+            var headers = document.querySelectorAll(".category-site-header");
+            headers.forEach(function(header) {
+                header.style.display = "block";
+                header.style.textAlign = "center"; 
+            });
+           
+        }
+    } 
+    
+    document.addEventListener("click", hideContent);
+</script>
+
+
+<!-- Script to toggle car categories on/off-->
+<script>
+    function toggleCategories() {
+      var categories = document.querySelectorAll(".choose-car-type-row");
+      categories.forEach(function(category) {
+        if (category.style.display === "none" || category.style.display === "") {
+          category.style.display = "flex";
+        } else {
+          category.style.display = "none";
+        }
+      });
+    }
+  
+    document.addEventListener("click", function(event) {
+      if (event.target.closest('.fa-chevron-down') || event.target.closest('.select-car-type-text')) {
+        toggleCategories();
+      }
+    });  
+
+function hideCategories(event) {
+    var categories = document.querySelectorAll(".choose-car-type-row");
+    if (event.target.closest('.car-type-selector-element')) {
+        categories.forEach(function(category) {
+            category.style.display = "none";
+        });
+    }
+}
+    document.addEventListener("click", hideCategories);
+  </script>
+
+<!-- Script to change car type selector images upon hover-->
+<script>
+document.getElementById('car-type-image1').addEventListener('mouseover', function() {
+    this.src = 'http://localhost/CarRentalWebsiteFinalXAMPP/Images/sedancopy.png'; 
+});
+
+document.getElementById('car-type-image1').addEventListener('mouseout', function() {
+    this.src = 'http://localhost/CarRentalWebsiteFinalXAMPP/Images/sedan.png'; 
+});
+
+document.getElementById('car-type-image2').addEventListener('mouseover', function() {
+    this.src = 'http://localhost/CarRentalWebsiteFinalXAMPP/Images/vancopy.png'; 
+});
+
+document.getElementById('car-type-image2').addEventListener('mouseout', function() {
+    this.src = 'http://localhost/CarRentalWebsiteFinalXAMPP/Images/van.png'; 
+});
+
+document.getElementById('car-type-image3').addEventListener('mouseover', function() {
+    this.src = 'http://localhost/CarRentalWebsiteFinalXAMPP/Images/SUVcopy.png'; 
+});
+
+document.getElementById('car-type-image3').addEventListener('mouseout', function() {
+    this.src = 'http://localhost/CarRentalWebsiteFinalXAMPP/Images/SUV.png'; 
+});
+</script>                                                                 
+
+<!--Script for showing recent searches in search bar-->
+<script src="Searchbarrecentsearches.js">
+</script>
+
+<!--Script for expanding and minimising cart-->
+<script>
+    function expandcart() {
+    if (document.getElementById("cart-expanded").style.display=="none") {
+    document.getElementById("cart-expanded").style.display="block";
+    } else {
+    document.getElementById("cart-expanded").style.display="none";   
+    } 
+}
+</script>
+
+<!--Script for changing checkout button and status based on if theres items in the cart-->
+<script>
+    $(document).ready(function() {
+       function updateCheckoutButton() {
+           var totalAmountText = $("#total2").text();
+           var totalAmount = parseFloat(totalAmountText.replace('$', '')).toFixed(2);
+           if (totalAmount <= 0.00) {
+               console.log("Total amount:", totalAmount);
+               $("#checkout-button").removeClass("enabled").addClass("disabled");
+               document.getElementById("cart-empty-status").style.display="block";
+               
+           } else {
+               console.log("Total amount:", totalAmount);
+               $("#checkout-button").removeClass("disabled").addClass("enabled");
+               document.getElementById("cart-empty-status").style.display="none";
+               
+               //
+           }
+       }
+    updateCheckoutButton();
+    
+    
+       // Update the button status whenever the total amount changes
+       $(".add-to-cart-button-Available").click(function() {
+           setTimeout(updateCheckoutButton, 50);
+          //localStorage.setItem("cart","test");
+       });
+      
+       $(".cart-grid").on("click", ".remove-item", function() {
+           setTimeout(updateCheckoutButton, 50);
+           console.log("Total amount:", totalAmount1);
+       });
+    
+    
+       $(".clear-button").click(function() {
+           setTimeout(updateCheckoutButton, 100);
+        });
+});
+</script>
+
+
+<!--Script for cart and script for linking products and product info from the database-->
+<script src="Categories2.js">
+</script>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

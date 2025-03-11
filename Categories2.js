@@ -2,10 +2,10 @@
 function clearGrid() {
     // Reset all grid items
     for (var i = 1; i <= 5; i++) {
-        $("#grid-image" + i).attr("src", ""); // Clear image
-        $("#item-description" + i).html(""); // Clear description
-        $("#item-price" + i).html(""); // Clear price
-        $("#item-availability" + i).html(""); // Clear availability
+        $("#grid-image" + i).attr("src", ""); 
+        $("#item-description" + i).html(""); 
+        $("#item-price" + i).html(""); 
+        $("#item-availability" + i).html("");
     }
     console.log("Grid Cleared");
 }
@@ -15,18 +15,15 @@ function clearemptygridItem() {
        
     // Loop through the NodeList
     gridItems.forEach(function(item) {
-        
-    console.log(item); // Log each grid item
+    console.log(item);
     description = item.querySelector(".item-description");
-    // Perform actions on each grid item
+    
    console.log("Description element:", description); 
    console.log("Description:", description ? description.innerHTML : "No description found");
     if (description.innerHTML.trim() === "") {
         console.log(item.id + " is empty");
-        item.style.display = "none"; // Hide the empty grid item
-    } else {
-        item.style.display = ""; // Ensure non-empty items are visible
-    }
+        item.style.display = "none"; 
+    } 
     }); 
 }
 

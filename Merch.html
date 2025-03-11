@@ -57,7 +57,7 @@
             <h1>Welcome to the Merch Store</h1>
         
             <div class="search-box" style="position: relative;">
-                <input type="search" class="form-control" id="form" placeholder="Search for model name, brand or type">
+                <input type="search" class="form-control" id="form" placeholder="Search for product">
                 <ul id="recent-searches" class="recent-searches" style="list-style: none; margin: 0;
                 padding: 0;
                 border-top: none;
@@ -93,42 +93,18 @@
 
 
       <div class="brand-display">
-       <h2 class="slide-header">Explore our range from the following brands!</h2>  
+       <h2 class="slide-header">Select a Category</h2>  
        <div class="slide-images-row">
-        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><img src="Images\bmw.png" class="slide-image" id="1002"></button>
-        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><img src="Images\ford.png" class="slide-image" id="1001"></button>
-        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><img src="Images\Mazda.png" class="slide-image" id="1005"></button>
-        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><img src="Images\suzuki.png" class="slide-image" id="1004"></button>
-        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><img src="Images\toyota.png" class="slide-image" id="1003"></button>
-        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><img src="Images\toyota.png" class="slide-image" id="1006"></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><p class="slide-image" id="1002">T-Shirts</p></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><p class="slide-image" id="1001">Records</p></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><p class="slide-image" id="1005">Pants</p></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><p class="slide-image" id="1004">Jackets</p></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><p class="slide-image" id="1003">Hoodies</p></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><p class="slide-image" id="1006">Accessories</p></button>
         </div>
         <!--80x40px pics-->
       </div>
     <div class="content">
-        
-      
-      
-      <div class="guarantees-row">
-      
-      <div class="guarantees-element"> 
-      <i class="fa fa-calendar-check"></i>
-      <h4>Flexibility</h4>
-      <p class="guarantees-paragraph">You can cancel Anytime!</p>
-      </div>
-
-      <div class="guarantees-element"> 
-      <i class="fa fa-credit-card"></i>
-      <h4>Honesty</h4>
-      <p class="guarantees-paragraph">No funny business, we provide upfront fees.</p>
-      </div>
-
-      <div class="guarantees-element"> 
-      <i class="fa fa-lock"></i>
-      <h4>Security</h4>
-      <p class="guarantees-paragraph">Do not use our cars for armed robbery!</p>
-      </div>
-
-      </div>
 
      </div>
    
@@ -225,8 +201,7 @@ document.addEventListener("click", hideContent);
         var clickedElement = event.target;
 
          //Check if the clicked element matches any of the selectors
-        if (clickedElement.closest('.car-type-selector-element') || 
-            clickedElement.closest('.slide-image') ||
+        if (clickedElement.closest('.slide-image') ||
             clickedElement.closest('.fa-search')) {
             
             var content = document.querySelectorAll(".content");

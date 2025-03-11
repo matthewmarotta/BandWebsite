@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "bandwebsitedatabase";
+$dbname = "bandwebsitedatabase2";
 
 if (isset($_GET['query'])) {
     $query = "%" . $_GET['query'] . "%";

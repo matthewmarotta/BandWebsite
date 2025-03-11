@@ -2,11 +2,11 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "bandwebsitedatabase";
+$dbname = "bandwebsitedatabase2";
 
 if (isset($_GET['category'])) {
     $category = $_GET['category'];
-
+    
     $conn = new mysqli($servername, $username, $password, $dbname);
 
     if ($conn->connect_error) {

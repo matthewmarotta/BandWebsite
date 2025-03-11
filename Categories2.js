@@ -1,10 +1,49 @@
+
+function clearGrid() {
+    // Reset all grid items
+    for (var i = 1; i <= 5; i++) {
+        $("#grid-image" + i).attr("src", ""); // Clear image
+        $("#item-description" + i).html(""); // Clear description
+        $("#item-price" + i).html(""); // Clear price
+        $("#item-availability" + i).html(""); // Clear availability
+    }
+    console.log("Grid Cleared");
+}
+
+function clearemptygridItem() {
+    var gridItems = document.querySelectorAll(".grid-item");
+       
+    // Loop through the NodeList
+    gridItems.forEach(function(item) {
+        
+    console.log(item); // Log each grid item
+    description = item.querySelector(".item-description");
+    // Perform actions on each grid item
+   console.log("Description element:", description); 
+   console.log("Description:", description ? description.innerHTML : "No description found");
+    if (description.innerHTML.trim() === "") {
+        console.log(item.id + " is empty");
+        item.style.display = "none"; // Hide the empty grid item
+    } else {
+        item.style.display = ""; // Ensure non-empty items are visible
+    }
+    }); 
+}
+
+
 $(document).ready(function() {
     $(".slide-image").click(function() {
+        console.log("Clear Grid Called"); 
+        clearGrid();
+       
         var category = $(this).attr("id");
-
+        console.log("Category ID:", category);
+        
         $.get("http://localhost/BandWebsite/PopulateGriditems2.php?category=" + category, function(data){
             var items = JSON.parse(data);
+            
             for (var i = 0; i < items.length; i++) {
+               
                 $("#grid-image" + (i + 1)).attr("src", items[i].Image_URL);
                 $("#category-header").html("<h2>" + items[i].Category_Name + "</h2>");
                 $("#item-description" + (i + 1)).html("<p>" + items[i].Name + "</p>");
@@ -18,17 +57,21 @@ $(document).ready(function() {
                         return '<p class="status-disabled">Status: Unavailable</p>' + 
                         '<button class="add-to-cart-button-Unavailable">Add to cart</button>';
                     } 
+                    
                     });
             }
+            clearemptygridItem();  
         });
+        
     });
 });
+
 
 $(document).ready(function() {
     $(".fa-search").click(function() {
         console.log("search button clicked");
         var query = document.getElementById('form').value;
-
+        clearGrid();
         $.get("http://localhost/BandWebsite/PopulateGriditemswithsearch.php?query=" + query, function(data3){
         
             var items = JSON.parse(data3);

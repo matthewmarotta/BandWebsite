@@ -6,9 +6,7 @@ html {
 
 h1 {
     font-weight: bold;
-    color: aliceblue;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;;
-}
+    /*text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;*/}
 
 body {
     height: 100%;

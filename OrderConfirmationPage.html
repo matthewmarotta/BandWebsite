@@ -118,7 +118,7 @@
     // Function to retrieve cart items from local storage
     
     
-     function getCartItemsFromLocalStorage() {
+    function getCartItemsFromLocalStorage() {
         console.log("getCartItemsFromLocalStorage function called");
         console.log(localStorage.getItem('cartItems'));
         var cartItems = JSON.parse(localStorage.getItem('cartItems'));
@@ -209,73 +209,228 @@ displayCartItems();
     //Script for updating database upon successful form submission
     $(document).ready(function() {
     $(".form").submit(function(event) {
-        event.preventDefault(); 
-        
+        event.preventDefault();       
         if (this.checkValidity()) {
             var cartItems = getCartItemsFromLocalStorage() || [];
-            
-            if (Array.isArray(cartItems)) {
-             
-               
-                
-                cartItems.forEach(function(cartItem) {
-                    $.ajax({
-                        url: 'http://localhost/BandWebsite/UpdateQuantity.php', 
-                        method: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                            itemName: cartItem.itemName,
-                            quantity: cartItem.quantity 
-                        }),
-                        success: function(response) {
-                            if (response && response.success) {
-                                if (response.available) {     
-                                } else {
-                                    console.error(response.message);
-                                }
-                            } else if (response && response.message && response.message.includes("Not enough available stock")) {
-                                handleInsufficientStock(response.message);
-                                return;
-                            } /*else {
-                                console.error('Error: ' + (response ? response.message : 'Unknown error'));
-                            }*/
-                          
-                           finalizePurchase();             
-                            
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('AJAX request failed:', xhr.responseText);
-                        }
-                    });
-                });
-            } else {
-                console.error('Cart items data is not an array or is invalid.');
-            }
+            $.ajax({
+                                url: 'http://localhost/BandWebsite/create_orderID.php',
+                                method: 'POST',
+                                contentType: 'application/json',
+                                data: JSON.stringify({
+                                action: 'create_orderID'
+                                }),
+                               success: function(response) {
+                               if (response && response.success && response.orderId && response.message.includes("Order created successfully")) {
+                               console.log("Order created");
+                            updateQuantity(cartItems,response.orderId);
+            } /*else {
+                console.error('Failed to create order:', response.message || 'Unknown error');
+                return;
+            }*/
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX request failed:', xhr.responseText);
+        }
+    });
         } else {
             console.error('Form is invalid.');
         }
     });
 
-    function finalizePurchase() {
-        console.log("finalize purchase triggered");
-       
-            $(".cart-grid").find('.cart-item').remove();
-            $("#total1").text("Total: $0.00");
-            $("#total2").text("$0.00");
-            console.log("cart cleared");
-            saveCartItemsToLocalStorage([]); 
-            updateCheckoutButton();
-            
-            setTimeout(function() {
-                window.scrollTo({
-                    top: document.documentElement.scrollHeight,
-                    behavior: 'smooth'
-                });
-            }, 200);
 
-            document.getElementById("confirm-purchase-message").style.display = "block";
+
     
-    }
+/*
+    function updateQuantity(cartItems, orderId) {
+        if (Array.isArray(cartItems)) {         
+                var quantityUpdateRequests = [];
+                var insufficientStock = false;
+                cartItems.forEach(function(cartItem) {
+                   var request = $.ajax({
+                        url: 'http://localhost/BandWebsite/UpdateQuantity.php', 
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                        itemName: cartItem.itemName,
+                        quantity: cartItem.quantity 
+                        }),
+                        success: function(response) {
+                            if (response && response.message && response.message.includes("Not enough available stock")) {
+                                insufficientStock = true;
+                                handleInsufficientStock(response.message);
+                                return;
+                            } else {
+                               console.log("Quantity Updated");
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('AJAX request failed:', xhr.responseText);
+                        }
+                    });
+                    quantityUpdateRequests.push(request);
+                });  
+                $.when.apply($, quantityUpdateRequests).then(function() {
+                    console.log("Process items called");
+                    if (!insufficientStock) {
+                    processItemsWithOrderId(cartItems, orderId);
+                    } else {
+                        return;
+                    }
+                });
+            } else {
+                console.error('Cart items data is not an array or is invalid.');
+            }         
+    }*/
+    function updateQuantity(cartItems, orderId) {
+    var quantityUpdateRequests = [];
+    var insufficientStock = false;
+    var insufficientStockMessage = "";
+    
+    // First check availability for all items
+    cartItems.forEach(function(cartItem) {
+        var request = $.ajax({
+            url: 'http://localhost/BandWebsite/CheckAvailability.php', 
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                itemName: cartItem.itemName,
+                quantity: cartItem.quantity 
+            }),
+            success: function(response) {
+                // Parse response if it's a string
+                if (typeof response === 'string') {
+                    try {
+                        response = JSON.parse(response);
+                    } catch (e) {
+                        console.error("Failed to parse response:", response);
+                    }
+                }
+                
+                // Check for insufficient stock message
+                if (response && response.success === false && response.message && 
+                    response.message.includes("Not enough available stock")) {
+                    console.log("Insufficient stock detected:", response.message);
+                    insufficientStock = true;
+                    insufficientStockMessage = response.message;
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX request failed:', xhr.responseText);
+                insufficientStock = true; // Consider any error as insufficient stock
+            }
+        });
+        quantityUpdateRequests.push(request);
+    });
+    
+    // After all availability checks complete
+    $.when.apply($, quantityUpdateRequests).then(function() {
+        console.log("All availability checks completed, insufficientStock:", insufficientStock);
+        
+        if (insufficientStock) {
+            // If any insufficient stock was found, show the message and stop
+            handleInsufficientStock(insufficientStockMessage);
+            return;
+        }
+        
+        // Only if all items have sufficient stock, proceed with updating
+        var updateRequests = [];
+        
+        cartItems.forEach(function(cartItem) {
+            var updateRequest = $.ajax({
+                url: 'http://localhost/BandWebsite/UpdateQuantity.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    itemName: cartItem.itemName,
+                    quantity: cartItem.quantity 
+                }),
+                success: function(response) {
+                    console.log("Quantity Updated for:", cartItem.itemName);
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX request failed:', xhr.responseText);
+                }
+            });
+            updateRequests.push(updateRequest);
+        });
+        
+        // Only process the order after all quantities are updated
+        $.when.apply($, updateRequests).then(function() {
+            console.log("Process items called - all quantities updated successfully");
+            processItemsWithOrderId(cartItems, orderId);
+        });
+    });
+}
+   
+
+function processItemsWithOrderId(cartItems, orderId) {
+    // Create array to track all AJAX requests
+    var ajaxRequests = [];
+    cartItems.forEach(function(cartItem) {
+        
+        var request = $.ajax({
+            url: 'http://localhost/BandWebsite/insert.php',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                itemName: cartItem.itemName,
+                itemPrice: cartItem.itemPrice,
+                quantity: cartItem.quantity,
+                orderId: orderId
+            }),
+            success: function(response) {
+              
+                if (response && response.success) {  
+                    console.log("Success:", response.message);
+                    console.log("Order ID:", response.orderId);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX request failed:', xhr.responseText);
+                console.log("failed to update order information table");
+            }
+        });
+        
+        ajaxRequests.push(request);
+    });
+    
+    // Wait for all AJAX requests to complete before clearing cart
+    $.when.apply($, ajaxRequests).done(function() {
+        console.log("All items processed with Order ID: " + orderId);
+
+        $.ajax({
+             url: 'http://localhost/BandWebsite/UpdateOrderRecord.php',
+             method: 'POST',
+             contentType: 'application/json',
+             data: JSON.stringify({
+             orderId: orderId
+        }),
+        success: function(response) {
+        console.log(response);
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX request failed:', xhr.responseText);
+        }
+        });
+        
+        // Clear cart only after all requests complete
+        $(".cart-grid").find('.cart-item').remove();
+        $("#total1").text("Total: $0.00");
+        $("#total2").text("$0.00");
+        console.log("cart cleared");
+        saveCartItemsToLocalStorage([]);
+        updateCheckoutButton();
+        
+        setTimeout(function() {
+            window.scrollTo({
+                top: document.documentElement.scrollHeight,
+                behavior: 'smooth'
+            });
+        }, 200);
+        
+        document.getElementById("confirm-purchase-message").style.display = "block";
+    });
+}
 
     function handleInsufficientStock(message) {
         alert(message);
@@ -349,48 +504,3 @@ $(document).on('click', '#cancel-reservation', function(event) {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

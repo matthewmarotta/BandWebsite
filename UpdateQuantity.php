@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $stmt->bind_param("s", $requestData['itemName']);
                     $stmt->execute();
                 }
-
+               
                 if ($row['Quantity_Available'] < 0) {
                   $exceededAmount = abs($row['Quantity_Available']);
                   $itemName = $requestData['itemName'];

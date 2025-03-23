@@ -23,7 +23,9 @@ function clearemptygridItem() {
     if (description.innerHTML.trim() === "") {
         console.log(item.id + " is empty");
         item.style.display = "none"; 
-    } 
+    } else {
+        item.style.display = "";
+    }
     }); 
 }
 
@@ -87,6 +89,7 @@ $(document).ready(function() {
                     } 
                     });
             }
+            clearemptygridItem();  
         });
     });
 });
@@ -165,10 +168,6 @@ $(document).ready(function() {
         var imageUrl = $gridItem.find(".grid-image").attr("src");
         var itemName = $gridItem.find(".item-description").text();
         var itemPrice = parseFloat($gridItem.find(".item-price").text().replace("$", ""));
-
-        /*if (cartItems.length > 0 && cartItems[0].itemName !== itemName) {
-            cartItems = [];
-        }*/
 
         var existingItem = cartItems.find(item => item.itemName === itemName);
         if (existingItem) {  

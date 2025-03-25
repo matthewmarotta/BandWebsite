@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <!--reservation button-->  
+    <!--cart-->  
     <div class="cart-bar">
         <ul>
         <li>
@@ -39,7 +39,7 @@
         </form>
         </div>
         </div>
-       <!--end of reservation button-->
+       <!--end of cart-->
      
     <div class="top-nav-bar-merchpage">
        <div class="background-image-container"></div>
@@ -80,9 +80,7 @@
                 
                 </ul>
                 <span class="input-group-text"><i class="fa fa-search"></i></span>
-            </div>   
-            
-            
+            </div>      
     </div> 
     
 
@@ -105,11 +103,39 @@
         <!--80x40px pics-->
       </div>
     <div class="content">
-
-     </div>
+        <h2 id="carousel-header">Featured Items</h2>  
+        <div id="carousel" class="slider"> 
+            <div id="slider" class="carousel slide carousel-fade">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="http://localhost/BandWebsite/ProductImages/Teeshirt1.jpg" class="carousel-image d-block w-100 "> 
+                  </div>
+                  <div class="carousel-item">   
+                    <img src="http://localhost/BandWebsite/ProductImages/Record1.jpg" class="carousel-image d-block w-100 ">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="http://localhost/BandWebsite/ProductImages/blacktote.jpg" class="carousel-image d-block w-100 "> 
+                  </div>
+                </div>
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#slider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" 
+                    onclick="displayPrice1()">
+                    </button>
+                    <button type="button" data-bs-target="#slider" data-bs-slide-to="1" aria-label="Slide 2" onclick="displayPrice2()"></button>
+                    <button type="button" data-bs-target="#slider" data-bs-slide-to="2" aria-label="Slide 3" onclick="displayPrice3()"></button>
+                  </div>
+              </div>
+        </div>
+       
+        <div id="carousel-descriptions">
+            <h3 class="carousel-description" id="Description1-Merch-Page-Home">T-Shirt 1</h3>
+            <h3 class="carousel-description" id="Description2-Merch-Page-Home">First Album</h3>
+            <h3 class="carousel-description" id="Description3-Merch-Page-Home">Tote Bag</h3>
+        </div>
+    </div>
    
    
-     </div>
+     
      <!--Product Category Section-->
      <h2 id="category-header" class="category-site-header"><br></h2>
 
@@ -166,43 +192,37 @@
 
     <!--Bootstrap Javascript plugin file-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
 
-<!--Scripts for hiding guarantees and loading different category page grids based on which link was clicked
-<script>
-function hideContent(event) {
-    if (event.target.closest('.car-type-selector-element')) {
-  
-    var content = document.querySelectorAll(".content") 
-    content.forEach(function(content) {
-        content.style.display = "none"
-    });
 
-    var grids = document.querySelectorAll(".grid");
-    grids.forEach(function(grid) {
-        grid.style.display = "flex";
-    });
+ <!--Script for specials prices in carousel-->
+ <script>
+    function displayPrice1() {
+        document.getElementById("Description1-Merch-Page-Home").style.display = "block";
+        document.getElementById("Description2-Merch-Page-Home").style.display = "none";
+        document.getElementById("Description3-Merch-Page-Home").style.display = "none";
+    } 
 
-    var headers = document.querySelectorAll(".category-site-header");
-    headers.forEach(function(header) {
-         header.style.display = "block";
-         header.style.textAlign = "center";
-    });
-    
+    function displayPrice2() {
+        document.getElementById("Description1-Merch-Page-Home").style.display = "none";
+        document.getElementById("Description2-Merch-Page-Home").style.display = "block";
+        document.getElementById("Description3-Merch-Page-Home").style.display = "none";
     }
-}
-document.addEventListener("click", hideContent);
 
-</script>-->
-
+    function displayPrice3() {
+        document.getElementById("Description1-Merch-Page-Home").style.display = "none";
+        document.getElementById("Description2-Merch-Page-Home").style.display = "none";
+        document.getElementById("Description3-Merch-Page-Home").style.display = "block";
+    }
+ </script>
 <!-- Script to hide content and show the grid -->
+
 <script>
    function hideContent(event) {
         var clickedElement = event.target;
 
          //Check if the clicked element matches any of the selectors
         if (clickedElement.closest('.slide-image') ||
-            clickedElement.closest('.fa-search')) {
+            clickedElement.closest('.fa-search') || clickedElement.closest('.carousel-description')) {
             
             var content = document.querySelectorAll(".content");
             content.forEach(function(contentItem) {
@@ -224,40 +244,7 @@ document.addEventListener("click", hideContent);
     }  
     document.addEventListener("click", hideContent);
 </script>
-
-
-<!-- Script to toggle merch categories on/off
-<script>
-    function toggleCategories() {
-      var categories = document.querySelectorAll(".choose-car-type-row");
-      categories.forEach(function(category) {
-        if (category.style.display === "none" || category.style.display === "") {
-          category.style.display = "flex";
-        } else {
-          category.style.display = "none";
-        }
-      });
-    }
-  
-    document.addEventListener("click", function(event) {
-      if (event.target.closest('.fa-chevron-down') || event.target.closest('.select-car-type-text')) {
-        toggleCategories();
-      }
-    });  
-
-function hideCategories(event) {
-    var categories = document.querySelectorAll(".choose-car-type-row");
-    if (event.target.closest('.car-type-selector-element')) {
-        categories.forEach(function(category) {
-            category.style.display = "none";
-        });
-    }
-}
-    document.addEventListener("click", hideCategories);
-  </script>-->
-
-                                                              
-
+                                                  
 <!--Script for showing recent searches in search bar-->
 <script src="Searchbarrecentsearches.js">
 </script>

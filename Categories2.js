@@ -53,7 +53,7 @@ $(document).ready(function() {
                          '<button class="add-to-cart-button-Available">Add to cart</button>';
                         
                     } else {
-                        return '<p class="status-disabled">Status: Out of Stock</p>' + 
+                        return '<p class="status-disabled">Out of Stock</p>' + 
                         '<button class="add-to-cart-button-Unavailable">Add to cart</button>';
                     } 
                     
@@ -84,7 +84,35 @@ $(document).ready(function() {
                         return '<p class="status-available">Status: In Stock</p>' + 
                          '<button class="add-to-cart-button-Available">Add to cart</button>';
                     } else {
-                        return '<p class="status-disabled">Status: Out of Stock</p>' + 
+                        return '<p class="status-disabled">Out of Stock</p>' + 
+                        '<button class="add-to-cart-button-Unavailable">Add to cart</button>';
+                    } 
+                    });
+            }
+            clearemptygridItem();  
+        });
+    });
+});
+
+$(document).ready(function() {
+    $(".carousel-description").click(function() {
+        console.log("carousel link clicked");
+        var query = $(this).text();
+        clearGrid();
+        $.get("http://localhost/BandWebsite/PopulateGriditemswithsearch.php?query=" + query, function(data3){
+        
+            var items = JSON.parse(data3);
+            for (var i = 0; i < items.length; i++) {
+                $("#grid-image" + (i + 1)).attr("src", items[i].Image_URL);
+                $("#category-header").html("<h2>Results</h2>");
+                $("#item-description" + (i + 1)).html("<p class='item-description'>" + items[i].Name + "</p>");
+                $("#item-price" + (i + 1)).html("<p class='item-price'>" + "$" + items[i].Price + "</p>");
+                $("#item-availability" + (i + 1)).html(function() {    
+                    if(items[i].Availability == 1) {
+                        return '<p class="status-available">Status: In Stock</p>' + 
+                         '<button class="add-to-cart-button-Available">Add to cart</button>';
+                    } else {
+                        return '<p class="status-disabled">Out of Stock</p>' + 
                         '<button class="add-to-cart-button-Unavailable">Add to cart</button>';
                     } 
                     });

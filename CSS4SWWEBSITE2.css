@@ -100,8 +100,6 @@ a:hover {
     pointer-events: none; /* Prevent clicking on disabled button */
  }
  
- 
- /*for checkout button*/
  .enabled {
     color: blue;
     pointer-events: visible;
@@ -165,26 +163,10 @@ justify-content: center;
     word-wrap: break-word;
     margin: 1rem;
  }
- 
- /*Styles for the date picker*/
- .date-picker-container {
-    margin: 20px 0;
-}
-.date-picker {
-    margin-right: 10px;
-}
-.invalid-date {
-    border-color: red;
-}
-.valid-date {
-    border-color: green;
-}
-/*Styles for the date picker*/
 
  .cart-bar {
     position: sticky; top:0; z-index:3; display: inline-flex; float: right; padding: 1rem; background-color: aliceblue;
  }
-
 
  .expanded-cart {
     max-width: 50rem; 
@@ -198,12 +180,10 @@ justify-content: center;
     z-index: 3;
     }
  
- 
  .cart-bar ul li {
    list-style: none;
    
  }
- 
  
  .cart-bar ul li a {
     font-size: 1rem;
@@ -213,9 +193,6 @@ justify-content: center;
     /*cursor: url("/Users/User/Desktop/WebsiteProject/Images/mousepointerhover.png"), auto;*/
  }
  
- 
- 
- 
  .cart-bar ul li .cart-wrapper:hover a,
  .cart-bar ul li .cart-wrapper:hover .reservation-button/*replacewith<p>reservation*/ {
     color: red;
@@ -223,8 +200,6 @@ justify-content: center;
  }
 
  /*end of grid layout for merch results pages*/
-
-
 .search-box {
     display: flex;
     align-items: center;
@@ -284,9 +259,6 @@ flex-direction: column;
 justify-content: space-between;
 align-items: center;
 }
-/*.slide-header {
-    
-}*/
 
 .slide-images-row {
     display: inline;
@@ -315,6 +287,71 @@ transform: scale(1.1);
 .category-site-header {
     display: none;
 }
+
+/*merch page carousel css*/
+.carousel-image {
+    width: 25rem;
+    margin-bottom: 0rem;
+}
+.carousel-indicators {
+    z-index: 1 !important;
+}
+.carousel-indicators button {
+    background-color: white !important;
+    border: 0.1rem solid grey !important;
+}
+.carousel-indicators .active {
+    border-color: none; 
+}
+.carousel {
+    box-shadow: 0.2rem 0.2rem 0.4rem 0.2rem rgba(0,0,0,0.5) !important;
+}
+
+.slider 
+{
+    width: 40rem;
+    height: 40rem;
+    overflow: hidden;
+    border: none !important;
+}
+#Description1-Merch-Page-Home {
+    display: block;
+    color: black;
+}
+#Description1-Merch-Page-Home:hover {
+    display: block;
+    color: grey;
+}
+#Description1-Merch-Page-Home:active {
+    display: block;
+    color: black;
+}
+#Description2-Merch-Page-Home {
+    display: none;
+    color: black;
+}
+#Description2-Merch-Page-Home:hover {
+    display: none;
+    color: grey;
+}
+#Description2-Merch-Page-Home:active {
+    display: none;
+    color: black;
+}
+#Description3-Merch-Page-Home {
+    display: none;
+    color: black;
+}
+#Description3-Merch-Page-Home:hover {
+    display: none;
+    color: grey;
+}
+#Description3-Merch-Page-Home:active {
+    display: none;
+    color: black;
+}
+/*end of merch page carousel css*/
+
 
 /*Grid layout for merch results pages*/
 .grid { 

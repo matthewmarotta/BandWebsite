@@ -46,14 +46,14 @@ $(document).ready(function() {
                 $("#grid-image" + (i + 1)).attr("src", items[i].Image_URL);
                 $("#category-header").html("<h2>" + items[i].Category_Name + "</h2>");
                 $("#item-description" + (i + 1)).html("<p>" + items[i].Name + "</p>");
-                $("#item-price" + (i + 1)).html("<p>" + "$" + items[i].Price + " per day</p>");
+                $("#item-price" + (i + 1)).html("<p>" + "$" + items[i].Price + "</p>");
                 $("#item-availability" + (i + 1)).html(function() {    
                     if(items[i].Availability == 1) {
-                        return '<p class="status-available">Status: Available</p>' + 
+                        return '<p class="status-available">Status: In Stock</p>' + 
                          '<button class="add-to-cart-button-Available">Add to cart</button>';
                         
                     } else {
-                        return '<p class="status-disabled">Status: Unavailable</p>' + 
+                        return '<p class="status-disabled">Status: Out of Stock</p>' + 
                         '<button class="add-to-cart-button-Unavailable">Add to cart</button>';
                     } 
                     
@@ -78,13 +78,13 @@ $(document).ready(function() {
                 $("#grid-image" + (i + 1)).attr("src", items[i].Image_URL);
                 $("#category-header").html("<h2>Results</h2>");
                 $("#item-description" + (i + 1)).html("<p class='item-description'>" + items[i].Name + "</p>");
-                $("#item-price" + (i + 1)).html("<p class='item-price'>" + "$" + items[i].Price + " per day</p>");
+                $("#item-price" + (i + 1)).html("<p class='item-price'>" + "$" + items[i].Price + "</p>");
                 $("#item-availability" + (i + 1)).html(function() {    
                     if(items[i].Availability == 1) {
-                        return '<p class="status-available">Status: Available</p>' + 
+                        return '<p class="status-available">Status: In Stock</p>' + 
                          '<button class="add-to-cart-button-Available">Add to cart</button>';
                     } else {
-                        return '<p class="status-disabled">Status: Unavailable</p>' + 
+                        return '<p class="status-disabled">Status: Out of Stock</p>' + 
                         '<button class="add-to-cart-button-Unavailable">Add to cart</button>';
                     } 
                     });

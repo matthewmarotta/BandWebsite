@@ -115,7 +115,17 @@
 <script>
  $(document).ready(function() {
      
-    // Function to retrieve cart items from local storage
+    function getFormItemsFromLocalStorage() {
+        console.log("getFormItemsFromLocalStorage function called");
+        console.log(localStorage.getItem('formItems'));
+        var cartItems = JSON.parse(localStorage.getItem('formItems'));
+         console.log(formItems.items); 
+        if (formItems && formItems.expires > new Date().getTime()) {
+            return formItems.items;
+        } else {
+            return [];
+        }
+    }
     
     
     function getCartItemsFromLocalStorage() {
@@ -129,7 +139,28 @@
             return [];
         }
     }
+
+    function generateUniqueUserId() {
+        const timestamp = new Date().getTime();
+        const randomString = Math.random().toString(36).substring(2, 15);
+        return `user_${timestamp}_${randomString}`;
+    }
+
+    function getUserId() {
+    //let userId = JSON.parse(localStorage.getItem('userId'));
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+        userId = generateUniqueUserId();
+        localStorage.setItem('userId', userId);
+    }
+    return userId;
+    }
     
+    function saveFormItemsToLocalStorage(formItems) {
+        var expirationTime = new Date().getTime() + (24 * 60 * 60 * 1000); 
+        localStorage.setItem('formItems', JSON.stringify({ items: formItems, expires: expirationTime }));
+    }
+
     function saveCartItemsToLocalStorage(cartItems) {
         var expirationTime = new Date().getTime() + (24 * 60 * 60 * 1000); 
         
@@ -209,28 +240,74 @@ displayCartItems();
     //Script for updating database upon successful form submission
     $(document).ready(function() {
     $(".form").submit(function(event) {
+        var formItems = [];
+        var firstName = $("#first_name").val();
+        var lastName = $("#last_name").val();
+        var street = $("#street").val();
+        var city = $("#city").val();
+        var state = $("#state").val();
+        var mobile = $("#mobile").val();
+        var email = $("#email").val();             
+
+        formItems.push({
+            firstName: firstName,
+            lastName: lastName,
+            street: street,
+            city: city,
+            state: state,
+            mobile: mobile,
+            email: email 
+        });
+
         event.preventDefault();       
-        if (this.checkValidity()) {
+        if (this.checkValidity()) { 
+            let userId = getUserId() || [];
             var cartItems = getCartItemsFromLocalStorage() || [];
+            
+            console.log("this is the user id in form: " + userId);
             $.ajax({
-                                url: 'http://localhost/BandWebsite/create_orderID.php',
-                                method: 'POST',
-                                contentType: 'application/json',
-                                data: JSON.stringify({
-                                action: 'create_orderID'
-                                }),
-                               success: function(response) {
-                               if (response && response.success && response.orderId && response.message.includes("Order created successfully")) {
-                               console.log("Order created");
-                            updateQuantity(cartItems,response.orderId);
-            } /*else {
-                console.error('Failed to create order:', response.message || 'Unknown error');
-                return;
-            }*/
+                url: 'http://localhost/BandWebsite/create_orderID.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                action: 'create_orderID'
+                }),
+            success: function(response) {
+                if (response && response.success && response.orderId && response.message.includes("Order created successfully")) {
+                console.log("Order created");          
+                updateQuantity(cartItems,response.orderId, userId);
+            }
         },
         error: function(xhr, status, error) {
             console.error('AJAX request failed:', xhr.responseText);
         }
+    }); 
+    formItems.forEach(function(formItem) { 
+            console.log(formItem);       
+            $.ajax({
+                         
+                url: 'http://localhost/BandWebsite/UpdateUserInformation.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    userId: userId,
+                    firstName: formItem.firstName,
+                    lastName: formItem.lastName,
+                    street: formItem.street,
+                    city: formItem.city,
+                    state: formItem.state,
+                    mobile: formItem.mobile,
+                    email: formItem.email
+                }),
+                success: function(response) {
+                    if (response && response.success) {
+                console.log("User Info Updated");
+            }
+            },
+            error: function(xhr, status, error) {
+            console.error('AJAX request failed:', xhr.responseText);
+            }
+        });
     });
         } else {
             console.error('Form is invalid.');
@@ -238,54 +315,11 @@ displayCartItems();
     });
 
 
-
-    
-/*
-    function updateQuantity(cartItems, orderId) {
-        if (Array.isArray(cartItems)) {         
-                var quantityUpdateRequests = [];
-                var insufficientStock = false;
-                cartItems.forEach(function(cartItem) {
-                   var request = $.ajax({
-                        url: 'http://localhost/BandWebsite/UpdateQuantity.php', 
-                        method: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                        itemName: cartItem.itemName,
-                        quantity: cartItem.quantity 
-                        }),
-                        success: function(response) {
-                            if (response && response.message && response.message.includes("Not enough available stock")) {
-                                insufficientStock = true;
-                                handleInsufficientStock(response.message);
-                                return;
-                            } else {
-                               console.log("Quantity Updated");
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error('AJAX request failed:', xhr.responseText);
-                        }
-                    });
-                    quantityUpdateRequests.push(request);
-                });  
-                $.when.apply($, quantityUpdateRequests).then(function() {
-                    console.log("Process items called");
-                    if (!insufficientStock) {
-                    processItemsWithOrderId(cartItems, orderId);
-                    } else {
-                        return;
-                    }
-                });
-            } else {
-                console.error('Cart items data is not an array or is invalid.');
-            }         
-    }*/
-    function updateQuantity(cartItems, orderId) {
+    function updateQuantity(cartItems, orderId, userId) {
     var quantityUpdateRequests = [];
     var insufficientStock = false;
     var insufficientStockMessage = "";
-    
+    console.log("this is the user id in update quantity: " + userId);
     // First check availability for all items
     cartItems.forEach(function(cartItem) {
         var request = $.ajax({
@@ -357,15 +391,16 @@ displayCartItems();
         // Only process the order after all quantities are updated
         $.when.apply($, updateRequests).then(function() {
             console.log("Process items called - all quantities updated successfully");
-            processItemsWithOrderId(cartItems, orderId);
+            processItemsWithOrderId(cartItems, orderId, userId);
         });
     });
 }
    
 
-function processItemsWithOrderId(cartItems, orderId) {
+function processItemsWithOrderId(cartItems, orderId, userId) {
     // Create array to track all AJAX requests
     var ajaxRequests = [];
+   
     cartItems.forEach(function(cartItem) {
         
         var request = $.ajax({
@@ -397,13 +432,14 @@ function processItemsWithOrderId(cartItems, orderId) {
     // Wait for all AJAX requests to complete before clearing cart
     $.when.apply($, ajaxRequests).done(function() {
         console.log("All items processed with Order ID: " + orderId);
-
+        console.log("this is the user id in process items: " + userId);
         $.ajax({
              url: 'http://localhost/BandWebsite/UpdateOrderRecord.php',
              method: 'POST',
              contentType: 'application/json',
              data: JSON.stringify({
-             orderId: orderId
+             orderId: orderId,
+             userId: userId
         }),
         success: function(response) {
         console.log(response);

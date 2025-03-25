@@ -345,6 +345,7 @@ transform: scale(1.1);
 }
 
 .status-available {
+    display: none;
     font-size: small;
     font-style: italic;
 }
@@ -361,7 +362,7 @@ transform: scale(1.1);
 
 .add-to-cart-button-Available {
     flex-wrap: wrap;
-    margin: 5rem 10rem 0 0rem;
+    margin: 7.2rem 10rem 0 0rem;
 }
 
 .add-to-cart-button-Unavailable {

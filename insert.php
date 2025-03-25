@@ -5,7 +5,12 @@ $password = "";
 $dbname = "bandwebsitedatabase2"; 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $requestData = json_decode(file_get_contents("php://input"), true);
+    
+    $jsonData = file_get_contents('php://input');
+    $requestData = json_decode($jsonData, true);
+
+
+   // $requestData = json_decode(file_get_contents("php://input"), true);
     
     if (isset($requestData['itemName']) && isset($requestData['itemPrice']) && isset($requestData['quantity']) && isset($requestData['orderId'])) {
         $conn = new mysqli($servername, $username, $password, $dbname);

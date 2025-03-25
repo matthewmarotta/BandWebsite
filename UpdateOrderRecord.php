@@ -11,8 +11,8 @@ error_reporting(E_ALL);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $requestData = json_decode(file_get_contents("php://input"), true);
-    
-    if (isset($requestData['orderId'])) {
+    error_log("Received data: " . print_r($requestData, true));
+    if (isset($requestData['orderId']) && isset($requestData['userId'])) {
         $conn = new mysqli($servername, $username, $password, $dbname);
         
         if ($conn->connect_error) {
@@ -24,14 +24,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         try { 
             $timestamp = date("Y-m-d H:i:s");
-            $sql = "INSERT INTO orders (Order_ID, Order_Date, Order_Status) VALUES (?, ?, 'pending')";
+            $sql = "INSERT INTO orders (Order_ID, Order_Date, Order_Status, User_ID) VALUES (?, ?, 'pending', ?)";
             $stmt = $conn->prepare($sql);
             
             if (!$stmt) {
                 throw new Exception($conn->error);
             }
             
-            $stmt->bind_param("ss", $requestData['orderId'], $timestamp);
+            $stmt->bind_param("sss", $requestData['orderId'], $timestamp, $requestData['userId']);
             $stmt->execute();
             $stmt->close();
 

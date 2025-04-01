@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     SET Total_Amount = (
                     SELECT SUM(Item_Price)
                     FROM orderinformationtable
-                    WHERE orderinformationtable.Order_ID = Order_ID
+                    WHERE orderinformationtable.Order_ID = orders.Order_ID
                     );";
             $stmt = $conn->prepare($sql);
             

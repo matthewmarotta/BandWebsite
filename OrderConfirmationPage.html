@@ -283,12 +283,13 @@ displayCartItems();
         }
     }); 
     formItems.forEach(function(formItem) { 
-            console.log(formItem);       
+            console.log(formItem);    console.log("ID IN HERE IS ", userId);   
             $.ajax({
                          
                 url: 'http://localhost/BandWebsite/UpdateUserInformation.php',
                 method: 'POST',
                 contentType: 'application/json',
+            
                 data: JSON.stringify({
                     userId: userId,
                     firstName: formItem.firstName,
@@ -306,7 +307,7 @@ displayCartItems();
             },
             error: function(xhr, status, error) {
             console.error('AJAX request failed:', xhr.responseText);
-            }
+            }    
         });
     });
         } else {
@@ -433,16 +434,34 @@ function processItemsWithOrderId(cartItems, orderId, userId) {
     $.when.apply($, ajaxRequests).done(function() {
         console.log("All items processed with Order ID: " + orderId);
         console.log("this is the user id in process items: " + userId);
+        
         $.ajax({
-             url: 'http://localhost/BandWebsite/UpdateOrderRecord.php',
-             method: 'POST',
-             contentType: 'application/json',
-             data: JSON.stringify({
-             orderId: orderId,
-             userId: userId
+        url: 'http://localhost/BandWebsite/UpdateOrderRecord.php',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+        orderId: orderId,
+            userId: userId
         }),
         success: function(response) {
-        console.log(response);
+            console.log(response);
+            
+            // Add email sending AJAX call here
+            $.ajax({
+                url: 'http://localhost/BandWebsite/SendOrderEmail.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    orderId: orderId,
+                    userId: userId
+                }),
+                success: function(emailResponse) {
+                    console.log("Email sent successfully:", emailResponse);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Email sending failed:', xhr.responseText);
+                }
+            });
         },
         error: function(xhr, status, error) {
             console.error('AJAX request failed:', xhr.responseText);

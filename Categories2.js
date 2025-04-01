@@ -71,9 +71,9 @@ $(document).ready(function() {
         console.log("search button clicked");
         var query = document.getElementById('form').value;
         clearGrid();
-        $.get("http://localhost/BandWebsite/PopulateGriditemswithsearch.php?query=" + query, function(data3){
+        $.get("http://localhost/BandWebsite/PopulateGriditemswithsearch.php?query=" + query, function(data){
         
-            var items = JSON.parse(data3);
+            var items = JSON.parse(data);
             for (var i = 0; i < items.length; i++) {
                 $("#grid-image" + (i + 1)).attr("src", items[i].Image_URL);
                 $("#category-header").html("<h2>Results</h2>");
@@ -99,9 +99,9 @@ $(document).ready(function() {
         console.log("carousel link clicked");
         var query = $(this).text();
         clearGrid();
-        $.get("http://localhost/BandWebsite/PopulateGriditemswithsearch.php?query=" + query, function(data3){
+        $.get("http://localhost/BandWebsite/PopulateGriditemswithsearch.php?query=" + query, function(data){
         
-            var items = JSON.parse(data3);
+            var items = JSON.parse(data);
             for (var i = 0; i < items.length; i++) {
                 $("#grid-image" + (i + 1)).attr("src", items[i].Image_URL);
                 $("#category-header").html("<h2>Results</h2>");

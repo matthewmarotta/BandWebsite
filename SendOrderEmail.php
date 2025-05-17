@@ -2,7 +2,11 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require __DIR__ . '/vendor/autoload.php';
-// create_order.php - Creates a unique order ID on the server
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -26,7 +30,7 @@ function generateOrderConfirmationEmail($email_data) {
     <p>Thanks for your purchase</p>
     
     <h2>Order Detail</h2>
-    <table style=width: 100%; border-collapse: collapse;'>
+    <table style='width: 100%; border-collapse: collapse;'>
         <tr>
             <th></th>
             <th>Item</th>
@@ -38,7 +42,7 @@ function generateOrderConfirmationEmail($email_data) {
 
         foreach($email_data as $item) {
          $html .= "<tr>
-            <td><img src=" .$item['Image_URL'] . "></td>
+            <td><img src='" . $item['Image_URL'] . "' alt='Product Image' style='max-width:100px;'></td>
             <td>" . $item['Name'] . "</td>
             <td>" . $item['Order_Quantity'] . "</td> 
            <td>$" . number_format($item['Item_Price'], 2) . "</td>
@@ -69,8 +73,8 @@ function generateOrderConfirmationEmail($email_data) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'mattmaro14@gmail.com';
-        $mail->Password   = 'jirt akpg nmhu yavy';
+        $mail->Username = $_ENV['MAIL_USERNAME'];
+        $mail->Password = $_ENV['MAIL_PASSWORD'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
@@ -80,12 +84,15 @@ function generateOrderConfirmationEmail($email_data) {
 
         // Content
         $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
         $mail->Subject = 'Order Confirmation';
         $mail->Body    = generateOrderConfirmationEmail($email_data);
 
         $mail->send();
         return true;
     } catch (Exception $e) {
+        error_log('Mailer Error: ' . $mail->ErrorInfo);
         return false;
     }
     }      
@@ -174,8 +181,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $stmt->close();
             $conn->close();
         }
-   // } else {
-  //      echo json_encode(["success" => false, "message" => "Invalid request"]);
-  //  }
 } 
 }

@@ -24,19 +24,19 @@ if (isset($_GET['query'])) {
     $searchTerm = "%" . $query . "%";
     $stmt->bind_param("ss", $searchTerm, $searchTerm);
     $stmt->execute();
-    $result3 = $stmt->get_result();
+    $result = $stmt->get_result();
 
-    $query_data3 = array();
+    $query_data = [];
 
-    if ($result3->num_rows > 0) {
-        while ($row = $result3->fetch_assoc()) {
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
             $query_data[] = $row;
         }
     }
 
     echo json_encode($query_data);
 
-    $stmt3->close();
+    $stmt->close();
     $conn->close();
 } else {
     echo "Search returned no results";

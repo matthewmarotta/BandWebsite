@@ -70,7 +70,7 @@ function generateOrderConfirmationEmail($email_data) {
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'mattmaro14@gmail.com';
-        $mail->Password   = '';
+        $mail->Password   = 'jirt akpg nmhu yavy';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 

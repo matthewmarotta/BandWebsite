@@ -70,10 +70,12 @@ $(document).ready(function() {
     $(".fa-search").click(function() {
         console.log("search button clicked");
         var query = document.getElementById('form').value;
+       
         clearGrid();
         $.get("http://localhost/BandWebsite/PopulateGriditemswithsearch.php?query=" + query, function(data){
-        
+            console.log("THIS IS THE DATA!2" + data);
             var items = JSON.parse(data);
+            console.log("THIS IS THE DATA3!" + data);
             for (var i = 0; i < items.length; i++) {
                 $("#grid-image" + (i + 1)).attr("src", items[i].Image_URL);
                 $("#category-header").html("<h2>Results</h2>");
@@ -88,7 +90,8 @@ $(document).ready(function() {
                         '<button class="add-to-cart-button-Unavailable">Add to cart</button>';
                     } 
                     });
-            }
+            }  
+            console.log("THIS IS THE DATA!4" + data);
             clearemptygridItem();  
         });
     });

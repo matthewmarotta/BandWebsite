@@ -1,7 +1,6 @@
 <?php
 require_once 'shared.php';
 
-// Returning after redirecting to a payment method portal.
 $paymentIntent = $stripe->paymentIntents->retrieve(
    $_GET['payment_intent'],
 );
@@ -79,18 +78,6 @@ function getUserId() {
         }
     }
 
-    /*function getCartItemsFromLocalStorage() {
-        console.log("getCartItemsFromLocalStorage function called");
-        console.log(localStorage.getItem('cartItems'));
-        var cartItems = JSON.parse(localStorage.getItem('cartItems'));
-         console.log(cartItems.items); 
-        if (cartItems && cartItems.expires > new Date().getTime()) {
-            return cartItems.items;
-        } else {
-            return [];
-        }
-    }*/
-
      function getCartItems() {
         return new Promise((resolve, reject) => {
         const userId = getUserId();
@@ -161,6 +148,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             //var cartItems = getCartItemsFromLocalStorage() || [];
             let cartItems = [];
 
+            const date = new Date().toISOString();
+
+            const paymentIntentData = {
+                id: '<?= $paymentIntent->id; ?>',
+                status: '<?= $paymentIntent->status; ?>',
+                amount: <?= $paymentIntent->amount; ?>,
+                currency: '<?= $paymentIntent->currency; ?>',
+                payment_method: '<?= $paymentIntent->payment_method; ?>'
+            };
+
             getCartItems().then(items => {
                 cartItems = items || [];
             });
@@ -178,7 +175,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             success: function(response) {
                 if (response && response.success && response.orderId && response.message.includes("Order created successfully")) {
                 console.log("Order created");          
-                updateQuantity(cartItems,response.orderId, userId);
+                updateQuantity(cartItems,response.orderId, userId, date, paymentIntentData);
             }
         },
         error: function(xhr, status, error) {
@@ -216,7 +213,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
     });
 
-    function updateQuantity(cartItems, orderId, userId) {        
+    function updateQuantity(cartItems, orderId, userId, date, paymentIntentData) {        
         var updateRequests = [];
         
         cartItems.forEach(function(cartItem) {
@@ -241,14 +238,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Only process the order after all quantities are updated
         $.when.apply($, updateRequests).then(function() {
             console.log("Process items called - all quantities updated successfully");
-            processItemsWithOrderId(cartItems, orderId, userId);
+            processItemsWithOrderId(cartItems, orderId, userId, date, paymentIntentData);
         });
     }
    
-function processItemsWithOrderId(cartItems, orderId, userId) {
+function processItemsWithOrderId(cartItems, orderId, userId, date, paymentIntentData) {
     // Create array to track all AJAX requests
     var ajaxRequests = [];
-   
+    
     cartItems.forEach(function(cartItem) {
         
         var request = $.ajax({
@@ -273,7 +270,6 @@ function processItemsWithOrderId(cartItems, orderId, userId) {
                 console.log("failed to update order information table");
             }
         });
-        
         ajaxRequests.push(request);
     });
     
@@ -293,7 +289,6 @@ function processItemsWithOrderId(cartItems, orderId, userId) {
         success: function(response) {
             console.log(response);
             
-            // Add email sending AJAX call here
             $.ajax({
                 url: 'http://localhost/BandWebsite/SendOrderEmail.php',
                 method: 'POST',
@@ -307,6 +302,27 @@ function processItemsWithOrderId(cartItems, orderId, userId) {
                 },
                 error: function(xhr, status, error) {
                     console.error('Email sending failed:', xhr.responseText);
+                }
+            });
+
+            $.ajax({
+                url: 'http://localhost/BandWebsite/UpdatePaymentInfo.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    id: paymentIntentData.id,
+                    orderId: orderId, 
+                    date: date, 
+                    payment_method: paymentIntentData.payment_method, 
+                    status: paymentIntentData.status,
+                    currency: paymentIntentData.currency,
+                    amount: paymentIntentData.amount
+                }),
+                success: function(response) {
+                    console.log("payment info sent successfully:", response);
+                },
+                error: function(xhr, status, error) {
+                    console.error('payment info sending failed:', xhr.responseText);
                 }
             });
         },

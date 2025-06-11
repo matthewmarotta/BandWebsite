@@ -34,7 +34,7 @@
         </div>
      
      
-        <form action="http://localhost/BandWebsite/accept-a-payment/server/public/OrderConfirmationPage.php" >
+        <form action="http://localhost/BandWebsite/OrderConfirmationPage.php" >
             <button id="checkout-button" class="checkout-button enabled" type="submit">Checkout</button>
         </form>
         </div>
@@ -193,6 +193,18 @@
     <!--Bootstrap Javascript plugin file-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+<!--Script to generate user id-->
+<script>
+function generateUniqueUserId() {
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+        const timestamp = new Date().getTime();
+        const randomString = Math.random().toString(36).substring(2, 15);
+        const userId = `user_${timestamp}_${randomString}`; 
+        localStorage.setItem('userId', userId);
+    }
+}
+</script>
 
  <!--Script for specials prices in carousel-->
  <script>
@@ -263,6 +275,8 @@
 <!--Script for changing checkout button and status based on if theres items in the cart-->
 <script>
     $(document).ready(function() {
+       generateUniqueUserId();
+
        function updateCheckoutButton() {
            var totalAmountText = $("#total2").text();
            var totalAmount = parseFloat(totalAmountText.replace('$', '')).toFixed(2);
@@ -285,7 +299,6 @@
        // Update the button status whenever the total amount changes
        $(".add-to-cart-button-Available").click(function() {
            setTimeout(updateCheckoutButton, 50);
-          //localStorage.setItem("cart","test");
        });
       
        $(".cart-grid").on("click", ".remove-item", function() {

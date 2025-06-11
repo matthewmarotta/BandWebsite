@@ -98,6 +98,8 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+    
+
     $(".carousel-description").click(function() {
         console.log("carousel link clicked");
         var query = $(this).text();
@@ -130,25 +132,102 @@ var totalAmount2 = 0.00;
 
 $(document).ready(function() {
 
-    function saveCartItemsToLocalStorage(cartItems) {
-        var expirationTime = new Date().getTime() + (24 * 60 * 60 * 1000);
-        localStorage.setItem('cartItems', JSON.stringify({ items: cartItems, expires: expirationTime }));
+    function getUserId() {
+    let userId = localStorage.getItem('userId');
+    if (!userId) {
+        userId = generateUniqueUserId();
+        localStorage.setItem('userId', userId);
+    }
+    return userId;
     }
 
-    function getCartItemsFromLocalStorage() {
-        var storedData = JSON.parse(localStorage.getItem('cartItems'));
-        if (storedData && storedData.expires > new Date().getTime()) {
-            return storedData.items;
-        } else {
-            return [];
+    
+function saveCartItems(cartItems) {
+    const userId = getUserId();
+    const expirationTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+    
+    $.ajax({
+        url: 'http://localhost/BandWebsite/UpdateCart.php',
+        method: 'POST',
+        contentType: 'application/json', 
+        data: JSON.stringify({
+            userId: userId,   
+            expirationTime: expirationTime,
+            cartItems: cartItems, 
+        }),
+        success: function(response) {
+            console.log("All items updated in cart", response.message);
+        },
+        error: function(xhr) {
+            console.error('AJAX request failed:', xhr.responseText);
         }
-    }
+    });
+}
+
+   function getCartItems() {
+    return new Promise((resolve, reject) => {
+        const userId = getUserId();
+        
+        $.ajax({
+            url: 'http://localhost/BandWebsite/RetrieveFromCart.php',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                userId: userId
+            }),
+            success: function(response) {
+                console.log("Cart data retrieved:", response);
+
+                const cartItems = response.cartItems;
+
+               
+                const transformedItems = cartItems.map(item => {
+                    return {
+                        imageUrl: item.Image_Url,           
+                        itemName: item.Name,               
+                        itemPrice: parseFloat(item.Price),  
+                        quantity: item.Quantity            
+                    };
+                });
+
+                console.log("Transformed items:", transformedItems); // Debug log to verify transformation
+
+                resolve(transformedItems); // Return the transformed data, not the raw cartItems
+                setTimeout(updateCheckoutButton, 300);
+                console.log("Update checkout button called in ajax");
+            },
+            error: function(xhr) {
+                console.error('AJAX request failed:', xhr.responseText);
+                reject(xhr.responseText);
+            }
+        });
+    });
+}
+
+function clearCartItems() {
+    const userId = getUserId();
+    
+    $.ajax({
+        url: 'http://localhost/BandWebsite/ClearCart.php',
+        method: 'POST',
+        contentType: 'application/json', 
+        data: JSON.stringify({
+            userId: userId,   
+        }),
+        success: function(response) {
+            console.log("All items cleared from cart", response.message);
+        },
+        error: function(xhr) {
+            console.error('AJAX request failed:', xhr.responseText);
+        }
+    });
+}
+
 
     function updateCartUI(cartItems) {
         $(".cart-item").remove();
         totalAmount1 = 0.00;
         totalAmount2 = 0.00;
-
         cartItems.forEach(function(item) {
             var $newCartItem = $('<div class="cart-item">' +
             '<img src="' + item.imageUrl + '" class="cart-image">' +
@@ -171,8 +250,14 @@ $(document).ready(function() {
         $("#total2").text("$" + totalAmount2.toFixed(2));
     }
 
-    var cartItems = getCartItemsFromLocalStorage() || [];
-    updateCartUI(cartItems);
+    //var cartItems = getCartItems() || [];
+    //updateCartUI(cartItems);
+    let cartItems = [];
+
+    getCartItems().then(items => {
+        cartItems = items || [];
+        updateCartUI(cartItems);
+    });
 
     function updateCheckoutButton() {
         var totalAmountText = $("#total2").text();
@@ -192,7 +277,10 @@ $(document).ready(function() {
         }
     }
 
-    updateCheckoutButton();
+
+   
+        
+ 
 
     $(document).on("click", ".add-to-cart-button-Available", function() {
         var $gridItem = $(this).closest(".grid-item");
@@ -212,8 +300,7 @@ $(document).ready(function() {
                 quantity: 1,
             });
         }
-
-        saveCartItemsToLocalStorage(cartItems);
+        saveCartItems(cartItems);
         updateCartUI(cartItems);
         updateCheckoutButton();
     });
@@ -241,7 +328,7 @@ $(document).ready(function() {
             if (itemIndex !== -1) {
                 cartItems[itemIndex].quantity = quantity;
                 cartItems[itemIndex].itemPrice = totalPrice;
-                saveCartItemsToLocalStorage(cartItems);
+                saveCartItems(cartItems);
             }
         }
 
@@ -249,7 +336,7 @@ $(document).ready(function() {
             $cartItem.remove();
             var itemName = $cartItem.find('.cart-item-name').text();
             cartItems = cartItems.filter(item => item.itemName !== itemName);
-            saveCartItemsToLocalStorage(cartItems);
+            saveCartItems(cartItems);
             updateCheckoutButton();
         }
     });
@@ -277,7 +364,8 @@ $(document).ready(function() {
             if (itemIndex !== -1) {
                 cartItems[itemIndex].quantity = quantity;
                 cartItems[itemIndex].itemPrice = itemPrice * quantity;
-                saveCartItemsToLocalStorage(cartItems);
+                saveCartItems(cartItems);
+                updateCheckoutButton();
             }
         }
     });
@@ -289,7 +377,7 @@ $(document).ready(function() {
         $("#total1").text("Total: $" + totalAmount1.toFixed(2));
         $("#total2").text("$" + totalAmount2.toFixed(2));
         cartItems = [];
-        saveCartItemsToLocalStorage(cartItems);
+        clearCartItems();
         updateCheckoutButton();
     });
 });

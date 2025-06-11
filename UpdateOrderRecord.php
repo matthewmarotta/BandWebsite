@@ -1,13 +1,8 @@
 <?php
-// create_order.php - Creates a unique order ID on the server
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "bandwebsitedatabase2";
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $requestData = json_decode(file_get_contents("php://input"), true);

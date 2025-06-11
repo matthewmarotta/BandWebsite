@@ -30,11 +30,11 @@ function updateCheckoutButton() {
 function generateUniqueUserId() {
         const timestamp = new Date().getTime();
         const randomString = Math.random().toString(36).substring(2, 15);
-        return `user_${timestamp}_${randomString}`;
+        const userId = `user_${timestamp}_${randomString}`; 
+        localStorage.setItem('userId', userId);
     }
   
 function getUserId() {
-    //let userId = JSON.parse(localStorage.getItem('userId'));
     let userId = localStorage.getItem('userId');
     if (!userId) {
         userId = generateUniqueUserId();
@@ -43,10 +43,24 @@ function getUserId() {
     return userId;
     }
 
-    function saveCartItemsToLocalStorage(cartItems) {
-        var expirationTime = new Date().getTime() + (24 * 60 * 60 * 1000);
-        localStorage.setItem('cartItems', JSON.stringify({ items: cartItems, expires: expirationTime }));
-    }
+    function clearCartItems() {
+    const userId = getUserId();
+    
+    $.ajax({
+        url: 'http://localhost/BandWebsite/ClearCart.php',
+        method: 'POST',
+        contentType: 'application/json', 
+        data: JSON.stringify({
+            userId: userId,   
+        }),
+        success: function(response) {
+            console.log("All items cleared from cart", response.message);
+        },
+        error: function(xhr) {
+            console.error('AJAX request failed:', xhr.responseText);
+        }
+    });
+}
 
     function saveFormItemsToLocalStorage(formItems) {
         var expirationTime = new Date().getTime() + (24 * 60 * 60 * 1000); 
@@ -65,7 +79,7 @@ function getUserId() {
         }
     }
 
-    function getCartItemsFromLocalStorage() {
+    /*function getCartItemsFromLocalStorage() {
         console.log("getCartItemsFromLocalStorage function called");
         console.log(localStorage.getItem('cartItems'));
         var cartItems = JSON.parse(localStorage.getItem('cartItems'));
@@ -75,6 +89,43 @@ function getUserId() {
         } else {
             return [];
         }
+    }*/
+
+     function getCartItems() {
+        return new Promise((resolve, reject) => {
+        const userId = getUserId();
+        
+        $.ajax({
+            url: 'http://localhost/BandWebsite/RetrieveFromCart.php',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                userId: userId
+            }),
+            success: function(response) {
+                console.log("Cart data retrieved:", response);
+
+                const cartItems = response.cartItems;
+               
+                const transformedItems = cartItems.map(item => {
+                    return {
+                        imageUrl: item.Image_Url,           
+                        itemName: item.Name,               
+                        itemPrice: parseFloat(item.Price),  
+                        quantity: item.Quantity            
+                    };
+                });
+
+                console.log("Transformed items:", transformedItems);
+
+                resolve(transformedItems); 
+            },
+            error: function(xhr) {
+                console.error('AJAX request failed:', xhr.responseText);
+                reject(xhr.responseText);
+            }
+        });
+    });
     }
 </script>
 
@@ -89,19 +140,17 @@ function getUserId() {
   </head>
   <body>
     <main>
-      <a href="/">home</a>
+      <a href="http://localhost/BandWebsite/Merch.html">home</a>
       <h1>Payment Status</h1>
 
       <h3>PaymentIntent</h3>
-      <p><a href="https://dashboard.stripe.com/test/payments/<?= $paymentIntent->id; ?>" target="_blank">Dashboard</a></p>
       <p>ID <?= $paymentIntent->id; ?></p>
       <p>Status: <?= $paymentIntent->status; ?></p>
-      <p>Amount: <?= $paymentIntent->amount; ?></p>
+      <p>Amount: $<?= $paymentIntent->amount*0.01; ?></p>
       <p>Currency: <?= $paymentIntent->currency; ?></p>
       <p>Payment Method: <?= $paymentIntent->payment_method; ?></p>
-      <a href='/'>Restart demo</a>
-
       <h2 id="confirm-purchase-message">Thankyou for your purchase! An order summary has been sent to your email</h2>
+      
     </main>
   </body>
 </html>
@@ -109,7 +158,13 @@ function getUserId() {
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
             let userId = getUserId() || [];
-            var cartItems = getCartItemsFromLocalStorage() || [];
+            //var cartItems = getCartItemsFromLocalStorage() || [];
+            let cartItems = [];
+
+            getCartItems().then(items => {
+                cartItems = items || [];
+            });
+
             var formItems = getFormItemsFromLocalStorage() || [];
             
             console.log("this is the user id in form: " + userId);
@@ -265,7 +320,7 @@ function processItemsWithOrderId(cartItems, orderId, userId) {
         $("#total1").text("Total: $0.00");
         $("#total2").text("$0.00");
         console.log("cart cleared");
-        saveCartItemsToLocalStorage([]);
+        clearCartItems();
         saveFormItemsToLocalStorage([]);
         updateCheckoutButton();
         

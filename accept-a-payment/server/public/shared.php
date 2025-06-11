@@ -1,6 +1,6 @@
 <?php
 
-require '../vendor/autoload.php';
+require(__DIR__ . '/../vendor/autoload.php');
 
 // If the .env file was not configured properly, display a helpful message.
 if(!file_exists('../.env')) {

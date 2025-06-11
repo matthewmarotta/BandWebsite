@@ -42,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
             
             // Step 2: Insert into orderinformationtable
-            // HERE'S THE FIX: Use the order ID from the request, not generate a new one
             $sql = "INSERT INTO orderinformationtable (Item_ID, Order_Quantity, Item_Price, Order_ID) VALUES (?, ?, ?, ?)";
             
             $stmt = $conn->prepare($sql);

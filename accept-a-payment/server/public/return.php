@@ -59,23 +59,6 @@ function getUserId() {
             console.error('AJAX request failed:', xhr.responseText);
         }
     });
-}
-
-    function saveFormItemsToLocalStorage(formItems) {
-        var expirationTime = new Date().getTime() + (24 * 60 * 60 * 1000); 
-        localStorage.setItem('formItems', JSON.stringify({ items: formItems, expires: expirationTime }));
-    }
-    
-    function getFormItemsFromLocalStorage() {
-        console.log("getFormItemsFromLocalStorage function called");
-        console.log(localStorage.getItem('formItems'));
-        var formItems = JSON.parse(localStorage.getItem('formItems'));
-         console.log(formItems.items); 
-        if (formItems && formItems.expires > new Date().getTime()) {
-            return formItems.items;
-        } else {
-            return [];
-        }
     }
 
      function getCartItems() {
@@ -162,7 +145,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 cartItems = items || [];
             });
 
-            var formItems = getFormItemsFromLocalStorage() || [];
+          //  var formItems = getFormItemsFromLocalStorage() || [];
             
             console.log("this is the user id in form: " + userId);
             $.ajax({
@@ -182,35 +165,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error('AJAX request failed:', xhr.responseText);
         }
     }); 
-    formItems.forEach(function(formItem) { 
-            console.log(formItem);    
-            console.log("ID IN HERE IS ", userId);   
-            $.ajax({
-                         
-                url: 'http://localhost/BandWebsite/UpdateUserInformation.php',
-                method: 'POST',
-                contentType: 'application/json',
-            
-                data: JSON.stringify({
-                    userId: userId,
-                    firstName: formItem.firstName,
-                    lastName: formItem.lastName,
-                    street: formItem.street,
-                    city: formItem.city,
-                    state: formItem.state,
-                    mobile: formItem.mobile,
-                    email: formItem.email
-                }),
-                success: function(response) {
-                    if (response && response.success) {
-                console.log("User Info Updated");
-            }
-            },
-            error: function(xhr, status, error) {
-            console.error('AJAX request failed:', xhr.responseText);
-            }    
-        });
-    });
     });
 
     function updateQuantity(cartItems, orderId, userId, date, paymentIntentData) {        
@@ -337,7 +291,7 @@ function processItemsWithOrderId(cartItems, orderId, userId, date, paymentIntent
         $("#total2").text("$0.00");
         console.log("cart cleared");
         clearCartItems();
-        saveFormItemsToLocalStorage([]);
+      //  saveFormItemsToLocalStorage([]);
         updateCheckoutButton();
         
         setTimeout(function() {

@@ -97,11 +97,44 @@ $dotenv->load();
             console.error('AJAX request failed:', xhr.responseText);
         }
     });
-}
-    function saveFormItemsToLocalStorage(formItems) {
-        var expirationTime = new Date().getTime() + (24 * 60 * 60 * 1000); 
-        localStorage.setItem('formItems', JSON.stringify({ items: formItems, expires: expirationTime }));
     }
+  
+    function saveFormItems(formItems) {
+        const userId = getUserId();
+        formItems.forEach(function(formItem) { 
+            console.log(formItem);    
+            console.log("ID IN HERE IS ", userId);   
+            $.ajax({
+                         
+                url: 'http://localhost/BandWebsite/UpdateUserInformation.php',
+                method: 'POST',
+                contentType: 'application/json',
+            
+                data: JSON.stringify({
+                    userId: userId,
+                    firstName: formItem.firstName,
+                    lastName: formItem.lastName,
+                    street: formItem.street,
+                    city: formItem.city,
+                    state: formItem.state,
+                    mobile: formItem.mobile,
+                    email: formItem.email
+                }),
+                success: function(response) {
+                    if (response && response.success) {
+                console.log("User Info Updated");
+            }
+            },
+            error: function(xhr, status, error) {
+            console.error('AJAX request failed:', xhr.responseText);
+            }    
+        });
+    });
+    }
+
+
+
+
     function handleInsufficientStock(message) {
         alert(message);
         console.log("cart not cleared");
@@ -303,7 +336,7 @@ $(document).ready(function() {
             
             // Clear server-side cart
             clearCartItems(); 
-            saveFormItemsToLocalStorage([]);
+           // saveFormItemsToLocalStorage([]);
             updateCheckoutButton();
             
             // Show cancellation message
@@ -318,7 +351,6 @@ $(document).ready(function() {
 </script>
 <!--Function for Stripe Payment-->
 <script>
-// Replace your existing Stripe initialization script with this:
 
 document.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -421,7 +453,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     confirmParams: {
                         return_url: `${window.location.origin}/BandWebsite/accept-a-payment/server/public/return.php`
                     }
-                });
+                }); 
                 
                 if(error) {
                     console.error('Payment error:', error.message);
@@ -456,7 +488,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 email: email 
             });
             console.log("Save form items to local storage called");
-            saveFormItemsToLocalStorage(formItems);
+           // saveFormItemsToLocalStorage(formItems);
+              saveFormItems(formItems);
         });
         
     } catch (error) {

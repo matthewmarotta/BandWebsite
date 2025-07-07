@@ -1,7 +1,7 @@
 
 function clearGrid() {
     // Reset all grid items
-    for (var i = 1; i <= 5; i++) {
+    for (var i = 1; i <= 6; i++) {
         $("#grid-image" + i).attr("src", ""); 
         $("#item-description" + i).html(""); 
         $("#item-price" + i).html(""); 
@@ -12,8 +12,7 @@ function clearGrid() {
 
 function clearemptygridItem() {
     var gridItems = document.querySelectorAll(".grid-item");
-       
-    // Loop through the NodeList
+ // Loop through the NodeList
     gridItems.forEach(function(item) {
     console.log(item);
     description = item.querySelector(".item-description");
@@ -49,12 +48,10 @@ $(document).ready(function() {
                 $("#item-price" + (i + 1)).html("<p>" + "$" + items[i].Price + "</p>");
                 $("#item-availability" + (i + 1)).html(function() {    
                     if(items[i].Availability == 1) {
-                        return '<p class="status-available">Status: In Stock</p>' + 
-                         '<button class="add-to-cart-button-Available">Add to cart</button>';
+                        return  '<button class="add-to-cart-button-Available">Add to cart</button>';
                         
                     } else {
-                        return '<p class="status-disabled">Out of Stock</p>' + 
-                        '<button class="add-to-cart-button-Unavailable">Add to cart</button>';
+                        return '<button class="add-to-cart-button-Unavailable">Add to cart</button>';
                     } 
                     
                     });
@@ -83,11 +80,9 @@ $(document).ready(function() {
                 $("#item-price" + (i + 1)).html("<p class='item-price'>" + "$" + items[i].Price + "</p>");
                 $("#item-availability" + (i + 1)).html(function() {    
                     if(items[i].Availability == 1) {
-                        return '<p class="status-available">Status: In Stock</p>' + 
-                         '<button class="add-to-cart-button-Available">Add to cart</button>';
+                        return  '<button class="add-to-cart-button-Available">Add to cart</button>';
                     } else {
-                        return '<p class="status-disabled">Out of Stock</p>' + 
-                        '<button class="add-to-cart-button-Unavailable">Add to cart</button>';
+                        return  '<button class="add-to-cart-button-Unavailable">Add to cart</button>';
                     } 
                     });
             }  
@@ -114,11 +109,9 @@ $(document).ready(function() {
                 $("#item-price" + (i + 1)).html("<p class='item-price'>" + "$" + items[i].Price + "</p>");
                 $("#item-availability" + (i + 1)).html(function() {    
                     if(items[i].Availability == 1) {
-                        return '<p class="status-available">Status: In Stock</p>' + 
-                         '<button class="add-to-cart-button-Available">Add to cart</button>';
+                        return '<button class="add-to-cart-button-Available">Add to cart</button>';
                     } else {
-                        return '<p class="status-disabled">Out of Stock</p>' + 
-                        '<button class="add-to-cart-button-Unavailable">Add to cart</button>';
+                        return '<button class="add-to-cart-button-Unavailable">Add to cart</button>';
                     } 
                     });
             }
@@ -190,9 +183,9 @@ function saveCartItems(cartItems) {
                     };
                 });
 
-                console.log("Transformed items:", transformedItems); // Debug log to verify transformation
+                console.log("Transformed items:", transformedItems);
 
-                resolve(transformedItems); // Return the transformed data, not the raw cartItems
+                resolve(transformedItems); 
                 setTimeout(updateCheckoutButton, 300);
                 console.log("Update checkout button called in ajax");
             },
@@ -237,7 +230,7 @@ function clearCartItems() {
             '<p class="cart-item-price">$' +  item.itemPrice.toFixed(2) + '</p>' + 
             '<p class="descriptor">Quantity:</p>' +
             '<p class="cart-item-quantity">' + item.quantity + '</p>' +
-            '<i class="fa fa-times remove-item"></i>' +
+            '<i class="fa fa-minus remove-item"></i>' +
             '<i class="fa fa-plus add-item"></i>' +
         '</div>');
             $(".cart-grid").prepend($newCartItem);
@@ -247,11 +240,9 @@ function clearCartItems() {
         });
 
         $("#total1").text("Total: $" + totalAmount1.toFixed(2));
-        $("#total2").text("$" + totalAmount2.toFixed(2));
+
     }
 
-    //var cartItems = getCartItems() || [];
-    //updateCartUI(cartItems);
     let cartItems = [];
 
     getCartItems().then(items => {
@@ -260,23 +251,20 @@ function clearCartItems() {
     });
 
     function updateCheckoutButton() {
-        var totalAmountText = $("#total2").text();
-        var totalAmount = parseFloat(totalAmountText.replace('$', '')).toFixed(2);
-        if (totalAmount <= 0.00) {
-            $("#checkout-button").removeClass("enabled").addClass("disabled");
-            var emptyStatusElement = document.getElementById("cart-empty-status");
-            if (emptyStatusElement) {
-                emptyStatusElement.style.display = "block";
-            }
-        } else {
-            $("#checkout-button").removeClass("disabled").addClass("enabled");
-            var emptyStatusElement = document.getElementById("cart-empty-status");
-            if (emptyStatusElement) {
-                emptyStatusElement.style.display = "none";
+            var totalAmountText = $("#total1").text();  
+            var amountMatch = totalAmountText.match(/[\d\.]+/);
+            var totalAmount = amountMatch ? parseFloat(amountMatch[0]).toFixed(2) : 0.00;
+
+            console.log("Parsed Total:", totalAmount);
+
+            if (totalAmount <= 0) {
+                $("#checkout-button").removeClass("enabled").addClass("disabled");
+                document.getElementById("cart-empty-status").style.display = "block";
+            } else {
+                $("#checkout-button").removeClass("disabled").addClass("enabled");
+                document.getElementById("cart-empty-status").style.display = "none";
             }
         }
-    }
-
 
    
         
@@ -321,7 +309,7 @@ function clearCartItems() {
             totalAmount1 -= itemPrice;
             totalAmount2 -= itemPrice;
             $("#total1").text("Total: $" + totalAmount1.toFixed(2));
-            $("#total2").text("$" + totalAmount2.toFixed(2));
+       
 
             var itemName = $cartItem.find('.cart-item-name').text();
             var itemIndex = cartItems.findIndex(item => item.itemName === itemName);
@@ -357,7 +345,7 @@ function clearCartItems() {
             totalAmount1 += itemPrice;
             totalAmount2 += itemPrice;
             $("#total1").text("Total: $" + totalAmount1.toFixed(2));
-            $("#total2").text("$" + totalAmount2.toFixed(2));
+         
 
             var itemName = $cartItem.find('.cart-item-name').text();
             var itemIndex = cartItems.findIndex(item => item.itemName === itemName);
@@ -375,7 +363,7 @@ function clearCartItems() {
         totalAmount1 = 0.00;
         totalAmount2 = 0.00;
         $("#total1").text("Total: $" + totalAmount1.toFixed(2));
-        $("#total2").text("$" + totalAmount2.toFixed(2));
+     
         cartItems = [];
         clearCartItems();
         updateCheckoutButton();

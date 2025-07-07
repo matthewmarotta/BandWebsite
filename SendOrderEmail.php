@@ -17,7 +17,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-function generateOrderConfirmationEmail($email_data) {
+function generateOrderConfirmationEmail($email_data, $orderId) {
     $html = "
     <!DOCTYPE html>
     <html>
@@ -27,7 +27,7 @@ function generateOrderConfirmationEmail($email_data) {
     <body>
     <div style='max-width:600px; margin: 0 auto;'>
     <h1>Order Confirmation</h1>
-    <p>Order ID:</p>
+    <p>Order ID: " . $orderId . "</p>
     <p>Thanks for your purchase</p>
     
     <h2>Order Detail</h2>
@@ -66,7 +66,7 @@ function generateOrderConfirmationEmail($email_data) {
     }
     
     // Email sending function
-    function sendOrderConfirmationEmail($email_data) {
+    function sendOrderConfirmationEmail($email_data, $orderId) {
         $mail = new PHPMailer(true);
 
     try {
@@ -88,7 +88,7 @@ function generateOrderConfirmationEmail($email_data) {
         $mail->CharSet = 'UTF-8';
         $mail->Encoding = 'base64';
         $mail->Subject = 'Order Confirmation';
-        $mail->Body    = generateOrderConfirmationEmail($email_data);
+        $mail->Body    = generateOrderConfirmationEmail($email_data, $orderId);
 
         $mail->send();
         return true;
@@ -111,7 +111,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         $conn->begin_transaction();
         
+        
+
         try { 
+            $orderId = $requestData['orderId'];
+
             $sql = "SELECT 
             t.Order_Quantity, 
             t.Item_Price, 
@@ -142,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 throw new Exception($conn->error);
             }
             
-            $stmt->bind_param("ss", $requestData['orderId'], $requestData['userId']);
+            $stmt->bind_param("ss", $orderId, $requestData['userId']);
             $stmt->execute();
             // Commit the transaction
             $conn->commit();
@@ -155,10 +159,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $email_data[] = $row;
                 }
                 
-                // Actually send the email
-                $emailSent = sendOrderConfirmationEmail($email_data);
+             
+                $emailSent = sendOrderConfirmationEmail($email_data, $orderId);
                 
-                // Return a single combined response
+               
                 echo json_encode([
                     "success" => true,
                     "message" => "Order created successfully",
@@ -172,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 ]);
             }
         } catch (Exception $e) {
-            // Rollback the transaction in case of error
+           
             $conn->rollback();
             echo json_encode([
                 "success" => false,

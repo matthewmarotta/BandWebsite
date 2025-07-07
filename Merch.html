@@ -1,63 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="CSS4SWWEBSITE2.css" type="text/css"> 
     <title>My website</title>
 </head>
-<body>
 
-    <!--cart-->  
-    <div class="cart-bar">
-        <ul>
-        <li>
-            <div class="cart-wrapper" onclick="expandcart()">
-                <a class="reservation-button">Cart</a>
-                <a href="#" id="total2"> 
-            $0.00
-            </div></a>
-        </li>
-        </ul>
+<body class="merch-wrapper">
+<!--cart-->  
+        <div class="cart-bar">
+            <ul>
+            <li>
+                <div class="cart-wrapper" onclick="expandcart()">
+                    <i id="cart-icon" class="fa-solid fa-bag-shopping"></i>
+                </div>
+            </li>
+            </ul>
         </div>
-     <div class="expanded-cart" id="cart-expanded">
-        <div class="cart-grid"> 
-            <div class="cart-item" id="cart-item1">
-               <img src="" class="cart-image" id="cart-image">
-               <p class="cart-item-name" id="cart-item-name"></p>
-               <p class="cart-item-price" id="item-price"></p>
-            </div>
+        <div class="expanded-cart" id="cart-expanded">
+            <div class="cart-header"><h3 class="cart-title">Your cart</h3> <i class="fa fa-times close-cart" onclick="closecart()"></i></div> 
+            <div class="cart-grid"> 
+                <div class="cart-item" id="cart-item1">
+                    <img src="" class="cart-image" id="cart-image">
+                    <p class="cart-item-name" id="cart-item-name"></p>
+                    <p class="cart-item-price" id="item-price"></p>
+                </div>
             <h2 id="cart-empty-status">No Items In Cart</h2>
+        
+            </div>
         <div class="total-checkout-container">
-        <p class="total" id="total1">Total: 0.00</p><button class="clear-button">Clear</button>
-        </div>
-     
-     
-        <form action="http://localhost/BandWebsite/OrderConfirmationPage.php" >
-            <button id="checkout-button" class="checkout-button enabled" type="submit">Checkout</button>
-        </form>
+            <h4 class="total" id="total1"></h4>
+                <button class="clear-button">Clear</button>
+            <form action="http://localhost/BandWebsite/OrderConfirmationPage.php" >
+                <button id="checkout-button" class="checkout-button enabled" type="submit">Checkout</button>
+            </form>
         </div>
         </div>
-       <!--end of cart-->
+<!--end of cart-->
+ 
      
-    <div class="top-nav-bar-merchpage">
+    <div class="top-nav-bar-merchpage">   
+    
+       
+
        <div class="background-image-container"></div>
       
        
         
        <a href="http://localhost/BandWebsite/Homepage.html">   
-       <img class="nav-icon-merch-page" src="Images/LOGO STREET WORMS - RESIZED (NAV-ICON).png">
+       <img class="nav-icon-merch-page" src="Images/LOGONAVICON1.png">
        </a> 
 
        
        
  
     <div id="main-header" class="Merch-site-header">
-            <h1>Welcome to the Merch Store</h1>
+            <h1>Merch Store</h1>
         
             <div class="search-box" style="position: relative;">
+                <div class="input-group">
                 <input type="search" class="form-control" id="form" placeholder="Search for product">
+                <span class="input-group-text"><i class="fa fa-search"></i></span>
+            </div>
                 <ul id="recent-searches" class="recent-searches" style="list-style: none; margin: 0;
                 padding: 0;
                 border-top: none;
@@ -65,7 +72,7 @@
                 overflow-y: scroll;
                 position: absolute;
                 width: 100%;
-                background: white;
+                background: black;
                 display: none;
                 top: 100%;  /* Ensure it appears just below the input field */
                 left: 0;
@@ -79,7 +86,7 @@
                 box-shadow: none !important;">
                 
                 </ul>
-                <span class="input-group-text"><i class="fa fa-search"></i></span>
+                
             </div>      
     </div> 
     
@@ -90,34 +97,37 @@
     </div>
 
 
-      <div class="brand-display">
-       <h2 class="slide-header">Select a Category</h2>  
+      <div class="brand-display"> 
        <div class="slide-images-row">
-        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><p class="slide-image" id="1002">T-Shirts</p></button>
-        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><p class="slide-image" id="1001">Records</p></button>
-        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><p class="slide-image" id="1005">Pants</p></button>
-        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><p class="slide-image" id="1004">Jackets</p></button>
-        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><p class="slide-image" id="1003">Hoodies</p></button>
-        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><p class="slide-image" id="1006">Accessories</p></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><span class="slide-image" id="1002">T-Shirts</span></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><span class="slide-image" id="1001">Records</span></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><span class="slide-image" id="1005">Pants</span></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><span class="slide-image" id="1004">Jackets</span></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><span class="slide-image" id="1003">Hoodies</span></button>
+        <button style="border: none; padding: 0; margin: 0; background: none;" class = "slide-button"><span class="slide-image" id="1006">Accessories</span></button>
         </div>
         <!--80x40px pics-->
       </div>
+
+     
     <div class="content">
-        <h2 id="carousel-header">Featured Items</h2>  
-        <div id="carousel" class="slider"> 
+          <h2 id="carousel-header">Featured Items</h2>   
+        <div id="carousel" class="slider">  
+           
             <div id="slider" class="carousel slide carousel-fade">
-                <div class="carousel-inner">
+               
+                <div class="carousel-inner">  
+                 
                   <div class="carousel-item active">
-                    <img src="http://localhost/BandWebsite/ProductImages/Teeshirt1.jpg" class="carousel-image d-block w-100 "> 
+                    <img src="http://localhost/BandWebsite/ProductImages/Teeshirt1.png" class="carousel-image d-block "> 
                   </div>
                   <div class="carousel-item">   
-                    <img src="http://localhost/BandWebsite/ProductImages/Record1.jpg" class="carousel-image d-block w-100 ">
+                    <img src="http://localhost/BandWebsite/ProductImages/Record1.jpg" class="carousel-image d-block">
                   </div>
                   <div class="carousel-item">
-                    <img src="http://localhost/BandWebsite/ProductImages/blacktote.jpg" class="carousel-image d-block w-100 "> 
+                    <img src="http://localhost/BandWebsite/ProductImages/blacktote.jpg" class="carousel-image d-block"> 
                   </div>
-                </div>
-                <div class="carousel-indicators">
+                </div> <div class="carousel-indicators">
                     <button type="button" data-bs-target="#slider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" 
                     onclick="displayPrice1()">
                     </button>
@@ -125,20 +135,19 @@
                     <button type="button" data-bs-target="#slider" data-bs-slide-to="2" aria-label="Slide 3" onclick="displayPrice3()"></button>
                   </div>
               </div>
+               
         </div>
-       
-        <div id="carousel-descriptions">
+       <div id="carousel-descriptions">
             <h3 class="carousel-description" id="Description1-Merch-Page-Home">T-Shirt 1</h3>
             <h3 class="carousel-description" id="Description2-Merch-Page-Home">First Album</h3>
             <h3 class="carousel-description" id="Description3-Merch-Page-Home">Tote Bag</h3>
-        </div>
+        </div> 
     </div>
-   
-   
+    
      
      <!--Product Category Section-->
      <h2 id="category-header" class="category-site-header"><br></h2>
-
+        <div class="grid-container">
         <div class="grid">
             <div class ="grid-item" id="grid-item1">  
                 <img src="" class="grid-image" id="grid-image1">
@@ -155,16 +164,13 @@
                 <p id="item-availability2"></p>
                
             </div>
-
             <div class ="grid-item" id="grid-item3">  
                 <img src="" class="grid-image" id="grid-image3">
                 <p id="item-description3" class="item-description"></p>
                 <p id="item-price3" class="item-price"></p>
-                <p id="item-availability3"></p>
-                
-            </div>
-        </div>
-        <div class="grid">
+                <p id="item-availability3"></p>   
+            </div></div>
+             <div class="grid">
             <div class ="grid-item" id="grid-item4">  
                 <img src="" class="grid-image" id="grid-image4">
                 <p id="item-description4" class="item-description"></p>
@@ -172,7 +178,7 @@
                 <p id="item-availability4"></p>
             
             </div>
-    
+       
             <div class ="grid-item" id="grid-item5">  
                 <img src="" class="grid-image" id="grid-image5">
                 <p id="item-description5" class="item-description"></p>
@@ -180,8 +186,16 @@
                 <p id="item-availability5"></p>
                 
             </div>
-        </div>
-    
+
+            <div class ="grid-item" id="grid-item6">  
+                <img src="" class="grid-image" id="grid-image6">
+                <p id="item-description6" class="item-description"></p>
+                <p id="item-price6" class="item-price"></p>
+                <p id="item-availability6"></p>   
+            </div>
+            </div>
+            
+        </div>    
 </div>
 
 </div>
@@ -270,6 +284,10 @@ function generateUniqueUserId() {
     document.getElementById("cart-expanded").style.display="none";   
     } 
 }
+
+   function closecart() {
+       document.getElementById("cart-expanded").style.display="none";
+   }
 </script>
 
 <!--Script for changing checkout button and status based on if theres items in the cart-->
@@ -277,22 +295,24 @@ function generateUniqueUserId() {
     $(document).ready(function() {
        generateUniqueUserId();
 
-       function updateCheckoutButton() {
-           var totalAmountText = $("#total2").text();
-           var totalAmount = parseFloat(totalAmountText.replace('$', '')).toFixed(2);
-           if (totalAmount <= 0.00) {
-               console.log("Total amount:", totalAmount);
-               $("#checkout-button").removeClass("enabled").addClass("disabled");
-               document.getElementById("cart-empty-status").style.display="block";
-               
-           } else {
-               console.log("Total amount:", totalAmount);
-               $("#checkout-button").removeClass("disabled").addClass("enabled");
-               document.getElementById("cart-empty-status").style.display="none";
-               
-               //
-           }
-       }
+   
+        function updateCheckoutButton() {
+            var totalAmountText = $("#total1").text();  
+            var amountMatch = totalAmountText.match(/[\d\.]+/);
+            var totalAmount = amountMatch ? parseFloat(amountMatch[0]).toFixed(2) : 0.00;
+
+            console.log("Parsed Total:", totalAmount);
+
+            if (totalAmount <= 0) {
+                $("#checkout-button").removeClass("enabled").addClass("disabled");
+                document.getElementById("cart-empty-status").style.display = "block";
+            } else {
+                $("#checkout-button").removeClass("disabled").addClass("enabled");
+                document.getElementById("cart-empty-status").style.display = "none";
+            }
+        }
+
+       
     updateCheckoutButton();
     
     
@@ -322,6 +342,7 @@ function generateUniqueUserId() {
 
 
 </body>
+
 </html>
 
 

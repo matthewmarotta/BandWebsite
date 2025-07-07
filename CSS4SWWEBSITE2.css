@@ -6,7 +6,7 @@ html {
 
 h1 {
     font-weight: bold;
-    /*text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;*/}
+}
 
 body {
     height: 100%;
@@ -16,8 +16,15 @@ body {
     color: black;
 }
 
+button {
+    font-weight: 500;
+    border: none !important;
+    background-color: white;
+}
+
+
 p {
-    margin-top: 1rem;
+    font-weight: 500
   }
 
 a {
@@ -26,9 +33,13 @@ a {
 
 a:hover {
         text-decoration: none;
-        color: red;
     }
 
+/*Home Page elements*/
+.col-md-2, a:hover {
+    color: red;
+} 
+/*End of Home Page Elements*/
 
 /*Start of gigs page elements*/
 .mt-h1-Gigs-page {
@@ -60,17 +71,25 @@ a:hover {
 /*Merch Page Classes/IDs*/
 
 .nav-icon-merch-page {
+    background-color: white !important;
+    border-radius: 50%;
     max-height: 100px;
-    margin: 0px 0px 0px 10px;
+    margin: 25px 0px 0px 25px;
+}
+
+.merch-wrapper {
+    background-color: black;
+    color: white;
 }
 
 .top-nav-bar-merchpage {
-    position: relative;
-    background: white;
-    border-bottom: 0.188rem solid black;
+    position: sticky;
+    background: black;
+    border-bottom: 0.01rem solid white;
     width: 100%;
     z-index: 2;  
     justify-content: space-between;
+    margin-bottom: 2rem;
 }
 
 .background-image-container {
@@ -79,7 +98,7 @@ a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgb(227, 227, 227)), url('');
+    background-image: url('http://localhost/BandWebsite/Images/MOVINGSTEREOBACKDROP1.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -87,6 +106,7 @@ a:hover {
 }
 
 .Merch-site-header {
+    color: white;
     align-items: center;
     padding-bottom: 2rem;
     justify-content: center;
@@ -94,91 +114,179 @@ a:hover {
 }
 /*Styles for the cart*/
 
+
+.close-cart {
+    margin-left: 32rem;
+}
+
+.close-cart:hover {
+    color: grey;
+    cursor: pointer;
+}
+
+.cart-header {
+    display: flex;
+}
 /*for checkout button*/
 .disabled {
-    color: grey; /* You can adjust the color for disabled state */
-    pointer-events: none; /* Prevent clicking on disabled button */
+    color: grey; 
+    background-color: black;
+    border: 0.1rem solid white !important;
+    pointer-events: none; 
  }
  
- .enabled {
-    color: blue;
+.enabled {
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    background-color: white; 
+    border: solid black 0.1rem;
+    margin: 0rem 10rem 0 0rem;
+    transition: all 0.2s ease;
     pointer-events: visible;
- }
+}
+
+.enabled:hover {
+    background-color: black;
+    color: white;
+    outline: solid white 0.1rem;
+}
+
+.enable:active {
+    background-color: black; 
+}
  
+.clear-button {
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    background-color: white; 
+    border: solid black 0.1rem;
+    margin: 0rem 10rem 0 0rem;
+    transition: all 0.2s ease;
+    pointer-events: visible;
+}
+
+.clear-button:hover {
+    background-color: black;
+    color: white;
+    outline: solid white 0.1rem;
+}
+
+.clear-button:active {
+    background-color: black;
+}
  
- .clear-button {
- margin-left: auto;
- }
- 
- .cart-empty-status {
+.cart-empty-status {
     display: none;
  }
  
- .cart-grid {
+.cart-grid {
     display: flex;
-flex-direction: column;
-justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-height:80vh !important;
+    border: none !important;
+    margin: none !important;  
  }
  
  .cart-item1 {
     display: none;
  }
 
- .class-descriptor {
-    background-color: red;
+ .descriptor {
+    text-align: left;
+    word-wrap: break-word;
+    margin: 0.1rem;
+    margin-right: none;
  }
 
  .cart-item {
     display: flex;
-    flex-direction: row;
     align-items: center;
     border: solid black 0.1rem;
     padding-right: 1rem;
     margin-bottom: 0.5rem;
+    width: 40rem;
+ }
+
+ .remove-item {
+    margin: 1rem;
+ }
+
+ .remove-item:hover {
+    cursor: pointer;
+ }
+
+ .add-item:hover {
+    cursor: pointer;
  }
 
  .cart-image {
     max-width: 100%;
     height: auto;
-    
     width: 4rem;
     margin: 1rem;
  }
 
  .cart-item-name {
+    width: 4rem !important;
+    border: none !important;
     text-align: left;
-    word-wrap: break-word;
     margin: 1rem;
+    padding: none !important;
  }
 
 
- .cart-item-price {
+ .cart-item-price { 
+    width: 4rem;
     text-align: left;
     word-wrap: break-word;
     margin: 1rem;
  }
 
  .cart-item-quantity {
+    width: 4rem;
     text-align: left;
     word-wrap: break-word;
     margin: 1rem;
  }
 
  .cart-bar {
-    position: sticky; top:0; z-index:3; display: inline-flex; float: right; padding: 1rem; background-color: aliceblue;
+    position: sticky;
+    top:0; 
+    z-index:3; 
+    display: inline-flex; 
+    float: right; 
+    padding: 1rem; 
+   
  }
 
  .expanded-cart {
-    max-width: 50rem; 
-    height:auto; 
+    width: 43rem; 
+    height:90rem; 
     position:fixed; 
     right:0; 
-    top: 4.6rem; 
     display: none; 
     padding: 1rem; 
-    background-color: aliceblue;
+    background-color: white;
+    color: black;
     z-index: 3;
     }
+
+ .total-checkout-container {
+    position: absolute;
+    bottom: 10.5rem;
+    left: 0;
+    width: 100%;
+    background: black;
+    color: white;
+    padding: 1rem;
+ }
+
+ #checkout-button {
+    margin-top: 0.25rem;
+ }
  
  .cart-bar ul li {
    list-style: none;
@@ -189,14 +297,25 @@ justify-content: center;
     font-size: 1rem;
     font-weight: bold;
     text-decoration: none;
-    color: black;
+    color: white;
     /*cursor: url("/Users/User/Desktop/WebsiteProject/Images/mousepointerhover.png"), auto;*/
  }
  
- .cart-bar ul li .cart-wrapper:hover a,
- .cart-bar ul li .cart-wrapper:hover .reservation-button/*replacewith<p>reservation*/ {
-    color: red;
+ .cart-wrapper {
+    color: black;
+   
+ }
+ .cart-wrapper:hover
+  {
+    color: grey;
     cursor: pointer;
+ }
+
+ #cart-icon {
+    font-size: 2rem;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 50%;
  }
 
  /*end of grid layout for merch results pages*/
@@ -205,13 +324,18 @@ justify-content: center;
     align-items: center;
     justify-content: center;
     position: relative;
-    max-width: 600px; /* Adjust the max-width as needed */
+    max-width: 600px; 
     margin: 0 auto;
 }
-
+/*#form {
+    color: red !important;  
+    background-color: red !important;
+}*/
 .form-control {   
     margin-top: 9px !important;
-    border: 1px solid black !important;
+    color: white !important;
+    background: black !important;
+    border: 1px solid white !important;
     border-top-left-radius: 20px !important;
     border-bottom-left-radius: 20px !important;
     border-top-right-radius: 0 !important;
@@ -220,13 +344,25 @@ justify-content: center;
     flex-grow: 1;
 }
 
-.form-control:hover {
-    border: 2px solid black !important;
+.search-box input::placeholder {
+  color: grey;
+}
+
+
+
+.input-group:hover .form-control,
+.input-group:hover .input-group-text {
+  border: 1px solid black !important;
+}
+
+
+.input-group-text {
+    color: white;
 }
 
 .input-group-text {
     background: black !important;
-    border: 1px solid black !important;
+    border: 1px solid white !important;
     margin: 9px 10px 0px 0px !important;
     border-top-left-radius: 0px !important;
     border-bottom-left-radius: 0px !important;
@@ -236,6 +372,7 @@ justify-content: center;
     align-items: center;
     justify-content: center;
     padding: 10.1px 10px;
+    user-select: none;
     cursor: pointer;
 }
 
@@ -247,9 +384,11 @@ justify-content: center;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    padding: 2rem 2rem 2rem 2rem;
     flex-direction: column;
+    background-image: url('http://localhost/BandWebsite/Images/doodle-lines-arrows-circles-and-curves-hand-drawn-design-elements-isolated-on-white-background-for-infographic-illustration-free-vector.jpg');
     width: 100%;
-    background-color:  rgb(238, 238, 238);  
+    background-color:  white;  
 }
 
 /*brand display css*/
@@ -263,6 +402,7 @@ align-items: center;
 .slide-images-row {
     display: inline;
     padding-bottom: 2rem;
+   
 }
 
 .slide-button {
@@ -277,10 +417,12 @@ transform: scale(1.1);
 }
 
 .slide-image {
-    width: 6rem;
     margin: 1rem 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0.5rem 0.5rem 0.5rem;
+    border-radius: 2rem;
+    box-shadow: 0.2rem 0.2rem 0.2rem;
+    background-color: white;
+    padding: 0.5rem 1rem;
+    display: inline-block;
 }
 /*end of brand display css*/
 
@@ -289,10 +431,15 @@ transform: scale(1.1);
 }
 
 /*merch page carousel css*/
+
 .carousel-image {
-    width: 25rem;
-    margin-bottom: 0rem;
+  width: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.2rem solid black !important; 
 }
+
 .carousel-indicators {
     z-index: 1 !important;
 }
@@ -303,20 +450,45 @@ transform: scale(1.1);
 .carousel-indicators .active {
     border-color: none; 
 }
-.carousel {
-    box-shadow: 0.2rem 0.2rem 0.4rem 0.2rem rgba(0,0,0,0.5) !important;
+
+#carousel-header {
+    color: black;
+    max-width: 40rem;
+    width: 50%; 
+    margin: 0 auto;
+    border-top: 0.2rem solid black !important;
+    border-left: 0.2rem solid black !important;
+    border-right: 0.2rem solid black !important;
+    border-bottom: none !important;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+     box-sizing: border-box;
 }
+
+#carousel-descriptions {
+    color: black;
+    max-width: 40rem;
+    width: 50%; 
+    border-top: none !important;
+    border-left: 0.2rem solid black !important;
+    border-right: 0.2rem solid black !important;
+    border-bottom: 0.2rem solid black !important; 
+    background-color: white;
+    display: flex;
+    justify-content: center;
+}
+
 
 .slider 
 {
-    width: 40rem;
-    height: 40rem;
-    overflow: hidden;
-    border: none !important;
+    max-width: 40rem;
+    width: 50%; 
+    border: none !important; 
+    box-sizing: border-box;
 }
 #Description1-Merch-Page-Home {
     display: block;
-    color: black;
 }
 #Description1-Merch-Page-Home:hover {
     display: block;
@@ -328,7 +500,6 @@ transform: scale(1.1);
 }
 #Description2-Merch-Page-Home {
     display: none;
-    color: black;
 }
 #Description2-Merch-Page-Home:hover {
     display: none;
@@ -340,7 +511,6 @@ transform: scale(1.1);
 }
 #Description3-Merch-Page-Home {
     display: none;
-    color: black;
 }
 #Description3-Merch-Page-Home:hover {
     display: none;
@@ -355,21 +525,17 @@ transform: scale(1.1);
 
 /*Grid layout for merch results pages*/
 .grid { 
-   /* flex-wrap: wrap; */
-   display: inline-flex;
+    flex-wrap: wrap; 
+    display: inline-flex;
     align-items: center;
     justify-content: center; 
-    display: none;
+   
 }
 
 .grid-item {
-    background-color: rgb(190, 190, 190);
-    border: solid grey 0.1rem;
     border-radius: 0.5rem;
     padding: 0.5rem;
-    margin: 2rem;
-    justify-content: center; 
-    align-items: center;
+    margin: 2rem;   
 }
 
 .item-price {
@@ -387,9 +553,7 @@ transform: scale(1.1);
     font-style: italic;
 }
 
-.grid-item:hover{
-    border: solid green 0.3rem;
-}
+
 
 .grid-image {
     padding-right: none; 
@@ -398,37 +562,150 @@ transform: scale(1.1);
 }
 
 .add-to-cart-button-Available {
+    box-sizing: border-box;
     flex-wrap: wrap;
-    margin: 7.2rem 10rem 0 0rem;
+    background-color: white; 
+    border: solid black 0.1rem;
+    margin: 0rem 10rem 0 0rem;
+    transition: all 0.2s ease;
 }
+
+.add-to-cart-button-Available:hover {
+    background-color: black;
+    color: white;
+    outline: solid white 0.1rem;
+}
+
+.add-to-cart-button-Available:active {
+    background-color: black;  
+}
+
+
+
 
 .add-to-cart-button-Unavailable {
     flex-wrap: wrap;
     pointer-events: none;
+    background-color: black;
+    border: 0.1rem solid white !important;
     color: grey;
-    margin: 5rem 10rem 0 0rem;
+    margin: 0rem 10rem 0 0rem; 
+    pointer-events: none; 
 }
 /*end of grid layout for merch results pages*/
 
 
 /*Order confirmation page elements*/
-.form1 { 
-    border: solid black 0.2rem;
-    border-radius: 0.5rem;
-    margin: 4rem 2rem 0rem 0rem;
+
+.cart-item-order-confirmation-page {
+    display: flex;
+    align-items: center;
+    border: solid black 0.1rem;
+    padding-right: 1rem;
+    margin-bottom: 0.5rem;
+    width: 40rem;
 }
 
-.customer-info-heading {
+.content-order-confrimation-page {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 2rem 2rem 2rem;
+    flex-direction: column;
+    background-image: url('http://localhost/BandWebsite/Images/doodle-lines-arrows-circles-and-curves-hand-drawn-design-elements-isolated-on-white-background-for-infographic-illustration-free-vector.jpg');
+    width: 100%;
+    background-color:  white;  
+}
+
+
+#cart-container {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-height:15vh !important;
+    border: none !important;
+    margin: none !important;  
+ }
+
+.nav-icon-order-confirmation-page {
+    background-color: white !important;
+    border-radius: 50%;
+    max-height: 100px;
+    margin: 25px 0px 25px 25px;
+}
+
+.order-summary-container {
+     color: white;
+     background-color: black;
+     padding:1rem 4rem;
+     border-radius: 0.5rem;
+}
+
+.top-nav-bar-order-confirmation-page {
+    position: sticky;
+    background: black;
+    border-bottom: 0.01rem solid white;
+    width: 100%;
+    z-index: 2;  
+    justify-content: space-between;
+}
+
+.form1 { 
+    padding-top: 1rem;
+    border-top: solid black 0.2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.customer-information-container {
+    margin-right: 10rem;
+    display: inline-flex;
+    flex-direction: column;  
+   
+    align-items: flex-start; 
     margin-left: 1rem;
 }
 
-.form {
-    display: inline-flex;
-    align-items: flex-start;  
-    flex-direction: column;
-    width: 100%;
-    margin-left: 1rem; 
-    margin-bottom: 1rem;
+#cancel-reservation {
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    background-color: white; 
+    border: solid black 0.1rem;
+    margin: 0rem 10rem 0 0rem;
+    transition: all 0.2s ease;
+}
+
+#cancel-reservation:hover {
+    background-color: black;
+    color: white;
+    outline: solid white 0.1rem;
+}
+
+#cancel-reservation:active {
+    background-color: black;  
+}
+
+#submit {
+    box-sizing: border-box;
+    width:6rem;
+    flex-wrap: wrap;
+    background-color: black;
+    color: white;
+    border: solid black 0.1rem;
+    margin: 1rem 10rem 0 0rem;
+    transition: all 0.2s ease;   
+}
+
+#submit:hover {
+    background-color: white;
+    color: black;
+    outline: solid black 0.1rem;
+}
+
+#submit:active {
+    background-color: white;  
 }
 
 #order-cancelled-message {
@@ -449,58 +726,295 @@ transform: scale(1.1);
 
 
 /*Responsive elements*/
-@media only screen and (max-width: 61.25rem) {
+/*tablet*/
+@media only screen and (max-width: 1280px) {
+    .expanded-cart {
+        min-width: 43rem !important;
+        width: 50% !important;
+        max-height:100vh !important;
+    }
    
-    .slider 
-    {
+    .total-checkout-container {
+      bottom: 0 !important;
+    }  
+
+    .cart-grid { 
+        border: none !important;
+        margin: none !important;
+        max-height:80vh !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+    }
+
+    .slide-images-row {     
+        display:block;
+        justify-content: center;
+    }
+
+    .slide-image {
+        margin: 1rem 0.85rem;
+    }
+
+    .grid-item {
+      width: 14rem;
+      margin: 1rem;
+    }
+
+    .grid-image {
+       width: 14rem;
+    }
+
+    .add-to-cart-button-Available {
+        width: 6rem;
+        height: auto;
+    }
+}
+
+/*phone*/
+@media only screen and (max-width: 500px) {
+    
+    .Merch-site-header {
+        justify-items: center !important;
+    }
+
+    .h1 {
+        margin-top: 0rem !important;  
+    }
+
+    .input-group {
+        width: 80%;
+    }
+
+    .slide-images-row {
+        display: flex !important;
+        flex-wrap: wrap !important;
+    }
+
+    .slide-button {
+        width: 6.5rem;
+        height: auto;
+        padding: 0.25rem;
+        margin: 0.25rem;
+        background: none;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .slide-image {
+        display: block;
         width: 100%;
-        margin-left: 0;
+        font-size: 0.7rem;
+        text-align: center;
+        background-color: white;
+        box-shadow: 0.1rem 0.1rem 0.2rem rgba(0,0,0,0.3);
+        word-wrap: break-word;
+        white-space: normal;
+        overflow-wrap: break-word;
+    } 
+ 
+    .nav-icon-merch-page {
+        width: auto;
+        max-height: 70px !important;
+        margin: 15px 0px 0px 15px !important;
+    }
+
+    .expanded-cart {
+        max-height: 100vh !important;
+        height:100vh !important;
+    }
+
+    .expanded-cart {
+       min-width: 100vw !important;
+       max-width: 100vw !important;
+   }
+   
+   .cart-grid {
+       max-height: 80vh !important;
+   }
+
+   #cart-icon {
+       font-size: 24px;
+   }
+
+   .cart-item {
+       width: 90vw !important;
+       max-width: 90vw !important;
+   }
+   
+    .total-checkout-container {
+      bottom: 0 !important;
+    }  
+
+    .close-cart {
+        margin-left: 10vw !important;
+    }
+
+    .cart-header {
+        display: inline-flex;
+    }
+
+    .cart-title {
+        margin-right: 50vw;
+    }
+
+    .cart-image {
+        margin: 0.5rem;
+    }
+
+    .cart-item-name {
+        margin: 0.5rem;
+    }
+
+    .cart-item-price {
+        margin: 0.5rem;
     }
     
-    .side-menu {
-        width: 40%;
-        z-index: 20;
-        top: 10.2rem;
-        position: fixed;
-        display:none;
+    .cart-item-quantity {
+        width: 0rem;
+        margin: 0.5rem;
     }
 
-    .side-menu ul li ul {
-        top: 10.2rem;
+    .fa fa-minus remove-item {
+        margin: 0.5rem;
     }
 
-    .side-menu ul li:hover > ul {
-        margin-left: 30%;
-        top: 10.2rem;   
+    .fa fa-plus add-item {
+        margin: 0.5rem;
     }
 
-    #menu-btn {
+    .descriptor {
+        display: none;
+    }
+
+    .slide-images-row {     
         display:block;
-        font-size: 2rem;
-        margin: 1rem;
-        color: black;
+        justify-content: center;
     }
+
+    .slide-image {
+        margin: 1rem 0.85rem;
+    }
+
+    .grid-item {
+      width: 14rem;
+      margin: 1rem;
+    }
+
+    .grid-image {
+       width: 14rem;
+    }
+
+    .add-to-cart-button-Available {
+        width: 6rem;
+        height: auto;
+    }
+
+    .content {
+         background-size: contain;
+    }
+
+    .carousel-image {
+        width: 50vw;
+     }
+
+    #carousel-header {
+    width: 50vw; 
+    }
+
+    #carousel-descriptions {
+        width: 50vw; 
+    }
+
+    .slider 
+    {
+        width: 50vw; 
+    }
+
+    /*order confirmation page elements*/
+
+ .nav-icon-order-confirmation-page {
+    width: auto;
+    max-height: 70px !important;
+    margin: 15px 0px 15px 15px !important;
+} 
+
+.content-order-confrimation-page {
+    padding: 0rem 2rem 0rem 2rem;
 }
 
-@media only screen and (max-width: 33.95rem) {
-top-nav-bar-merchpage {
-    margin: 0rem 0rem -10rem 0rem;
-    width: 100%;
+.order-summary-container {
+     color: white;
+     background-color: black;
+     padding:2rem ;
+     border-radius: 0 !important;
 }
-/*.cart-bar ul {
+
+.payment-container {
+    margin: 0 1rem 1rem 1rem;
+}
+
+.cart-item-order-confirmation-page {
+    width: 90vw !important;
+    max-width: 90vw !important;
+}
+
+#cart-container {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    max-height:20vh !important;
+    border: none !important;
+    margin: none !important;  
+ }
+
+.form1 { 
+    border-top: none;
     display: block;
-    margin-top: 11.8rem;   
+    justify-content: center;
 }
 
-.cart-bar ul li{
-    margin: 1rem 1rem 1rem 1rem;
-    width: 100%;
+.customer-information-container {
+    margin-right: 1rem;
+    align-items: flex-start;
+    max-width: 100% !important;
 }
 
-.cart-wrapper {
-    width: 100%;    
-}*/
+.customer-information-container input {
+      width: 92vw !important;
 }
+
+
+#submit {
+    margin-bottom: 1rem;
+}
+
+#order-cancelled-message {
+    display: none;
+    margin-top: 2rem;
+}
+
+#order-cancelled-image {
+    display: none;
+}
+
+#confirm-purchase-message {
+    display: none;
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
+    /*end of order confirmation page elements*/
+}
+
+@media only screen and (max-height: 750px) { 
+    .cart-grid {
+       max-height: 70vh !important;
+   }
+}
+
   
   
 

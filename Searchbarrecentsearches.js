@@ -45,7 +45,7 @@ $(document).ready(function() {
                 listItem.on("click", function() {
                     $("#form").val(suggestion);
                     recentSearchesList.hide();
-                    // Trigger search
+                 
                     $(".fa-search").click();
                 });
                 recentSearchesList.append(listItem);

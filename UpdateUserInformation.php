@@ -37,23 +37,23 @@ $requestData = json_decode(file_get_contents("php://input"), true);
                 throw new Exception($conn->error);
             }
             
-            // Use $requestData['orderId'] instead of $orderId
+            
             $stmt->bind_param("ssssssss", $requestData['userId'], $requestData['firstName'], $requestData['lastName'], $requestData['street'], $requestData['city'], $requestData['state'], $requestData['mobile']
         , $requestData['email']);
             $stmt->execute(); 
             $stmt->close();
             
-            // Commit the transaction
+          
             $conn->commit();
             
-            // Send success response 
+      
             echo json_encode([
                 "success" => true,
                 "message" => "User details added successfully",
             ]);
             
         } catch (Exception $e) {
-            // Rollback the transaction in case of error
+           
             $conn->rollback();
             echo json_encode([
                 "success" => false,

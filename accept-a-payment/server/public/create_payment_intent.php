@@ -6,16 +6,12 @@ $username = "root";
 $password = "";
 $dbname = "bandwebsitedatabase2";
 
-// Set content type to JSON
 header('Content-Type: application/json');
-
-// Suppress PHP errors from being displayed as HTML
 error_reporting(0);
 ini_set('display_errors', 0);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
-        // Create database connection
         $conn = new mysqli($servername, $username, $password, $dbname);
         
         if ($conn->connect_error) {
@@ -24,7 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         $requestData = json_decode(file_get_contents("php://input"), true);
         
-        // Fixed typo: usedId -> userId
         if (isset($requestData['total']) && isset($requestData['userId'])) {
             
             $sql = "SELECT SUM(Price) AS total_price FROM cart WHERE User_ID = ?";
@@ -41,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             
             $totalFromServer = $row["total_price"] ?? 0;
             
-            // Check if totals match
             if ($requestData['total'] == $totalFromServer) {
                 try {
                     $total = $requestData['total'];
@@ -51,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         'currency' => 'aud',
                     ]);
                     
-                    // Return the client secret and other data as JSON
                     echo json_encode([
                         "success" => true,
                         "client_secret" => $paymentIntent->client_secret,

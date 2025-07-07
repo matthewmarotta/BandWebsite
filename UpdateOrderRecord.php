@@ -44,17 +44,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             
             $stmt->execute();
             $stmt->close();
-            // Commit the transaction
+          
             $conn->commit();
             
-            // Send success response with the generated orderId
+        
             echo json_encode([
                 "success" => true,
                 "message" => "Order created successfully",
             ]);
             
         } catch (Exception $e) {
-            // Rollback the transaction in case of error
+           
             $conn->rollback();
             echo json_encode([
                 "success" => false,

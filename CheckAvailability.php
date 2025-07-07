@@ -14,7 +14,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
         }
         
-        // Just check if there's enough quantity available WITHOUT updating
         $sql = "SELECT (Quantity_Available - ?) as remaining FROM items WHERE Name = ?";
         $stmt = $conn->prepare($sql);
         

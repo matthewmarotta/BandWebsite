@@ -20,10 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
        
         $conn->begin_transaction();
         
-      //  $cartItems = $requestData['cartItems'];
-       // $userId = $requestData['userId'];
-      //  $expirationTime = $requestData['expirationTime'];
-        
         try {
             $success = true;
             $messages = [];

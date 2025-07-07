@@ -162,14 +162,16 @@ $dotenv->load();
 </head>
 <body>
    
-    <div class="top-nav-bar-merchpage">
+    <div class="top-nav-bar-order-confirmation-page">
         <a href="http://localhost/BandWebsite/Merch.html">  
-        <img class="nav-icon-merch-page" src="http://localhost/BandWebsite/Images/LOGO STREET WORMS - RESIZED (NAV-ICON).png">
+        <img class="nav-icon-order-confirmation-page" src="Images/LOGONAVICON1.png">
         </a>
     </div>
     <section class="header">
       
-    <div class="content">
+    <div class="content-order-confrimation-page">
+
+    <div class="order-summary-container">
         <div id="main-header" class="Merch-site-header">
         <h2>Order Confirmation Page</h2>
         </div>
@@ -182,30 +184,28 @@ $dotenv->load();
         <a href="http://localhost/BandWebsite/Merch.html">  
         <button id="cancel-reservation">Cancel Order</button>
         </a>
-        
-        
+    </div>    
        <img id="order-cancelled-image" src="http://localhost/BandWebsite/Images/face.jpg">
-        <h2 id="order-cancelled-message">Your order has been cancelled, bye bye</h2>
-        
+        <h2 id="order-cancelled-message">Your order has been cancelled, bye bye</h2>    
     </div>
     
-    <div class="form1">
-    <h2 class="customer-info-heading">Customer Information</h2>
    
-    <form action="#" method="post" class="form" id="payment-form">
+    <form action="#" method="post" class="form1" id="payment-form">
+        <div class="customer-information-container">
+    <h2 class="customer-info-heading">Customer Information</h2>
         <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" autocomplete="given-name" pattern="[a-zA-Z]+" required><br><br>
-        <p class="invalid-message" style="display: none;">Input is invalid, name must be alphabetic</p><br><br>
+        <input type="text" id="first_name" name="first_name" autocomplete="given-name" pattern="[a-zA-Z]+" required><br>
+        <p class="invalid-message" style="display: none;">Input is invalid, name must be alphabetic</p>
     
         <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" autocomplete="family-name" required><br><br>
+        <input type="text" id="last_name" name="last_name" autocomplete="family-name" required><br>
     
         
         <label for="street">Street Address:</label>
-        <input type="text" id="street" name="street" required><br><br>
+        <input type="text" id="street" name="street" required><br>
         
         <label for="city">City/Suburb:</label>
-        <input type="text" id="city" name="city" required><br><br>
+        <input type="text" id="city" name="city" required><br>
         
         <label for="state">State:</label>
         <select id="state" name="state" required>
@@ -219,18 +219,18 @@ $dotenv->load();
             <option value="ACT">Australian Capital Territory</option>
             <option value="NT">Northern Territory</option>
             <option value="Others">Others</option>
-        </select><br><br>
+        </select><br>
         
         <label for="mobile">Mobile Number:</label>
-        <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" placeholder="e.g., 0412345678" required><br><br>
+        <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" placeholder="e.g., 0412345678" required><br>
         
         <label for="email">Email Address:</label>
        
-        <input type="email" id="email" name="email"  pattern=".+\.com$" required title="Please enter a valid email address ending with '.com'"><br><br>
-  
-        
+        <input type="email" id="email" name="email"  pattern=".+\.com$" required title="Please enter a valid email address ending with '.com'"><br>
+      </div>
+     <div class="payment-container">
       <h2>Payment</h2>
-        <label for="payment-element">Payment details</label>
+      
         <div id="payment-element">
          
         </div>
@@ -238,12 +238,10 @@ $dotenv->load();
         <div id="payment-errors" role="alert"></div>
         <button id="submit">Pay</button>
         <div id="messages" role="alert" style="display: none;"></div>
- 
-         <!--Payment form end
-        <input id ="confirm-purchase" type="submit" value="Confirfm Order">--> <h2 id="confirm-purchase-message">Thankyou for your purchase! An order summary has been sent to your email</h2>
-        
+        <h2 id="confirm-purchase-message">Thankyou for your purchase! An order summary has been sent to your email</h2> 
+      </div>
     </form>
-    </div>
+    
      
     </section>
    
@@ -299,12 +297,14 @@ $(document).ready(function() {
         }
      
         cartItems.forEach(function(item) {
-            var $cartItem = $('<div class="cart-item">' +
+            var $cartItem = $('<div class="cart-item-order-confirmation-page">' +
                             '<img src="' + item.imageUrl + '" class="cart-image">' +
                             '<p class="descriptor">Name:</p>' +
                             '<p class="cart-item-name">' + item.itemName + '</p>' +
-                            '<p class="cart-item-price">Price: $' + item.itemPrice.toFixed(2) + '</p>' +
-                            '<p class="cart-item-quantity">Quantity: ' + item.quantity + '</p>' +
+                            '<p class="descriptor">Price:</p>' +
+                            '<p class="cart-item-price">$' + item.itemPrice.toFixed(2) + '</p>' +
+                            '<p class="descriptor">Quantity:</p>' +
+                            '<p class="cart-item-quantity">' + item.quantity + '</p>' +
                         '</div>');
             $cartContainer.append($cartItem);
         });
@@ -336,7 +336,6 @@ $(document).ready(function() {
             
             // Clear server-side cart
             clearCartItems(); 
-           // saveFormItemsToLocalStorage([]);
             updateCheckoutButton();
             
             // Show cancellation message
@@ -488,8 +487,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 email: email 
             });
             console.log("Save form items to local storage called");
-           // saveFormItemsToLocalStorage(formItems);
-              saveFormItems(formItems);
+            saveFormItems(formItems);
         });
         
     } catch (error) {

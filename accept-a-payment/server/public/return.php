@@ -128,7 +128,7 @@ function getUserId() {
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
             let userId = getUserId() || [];
-            //var cartItems = getCartItemsFromLocalStorage() || [];
+
             let cartItems = [];
 
             const date = new Date().toISOString();
@@ -144,8 +144,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             getCartItems().then(items => {
                 cartItems = items || [];
             });
-
-          //  var formItems = getFormItemsFromLocalStorage() || [];
             
             console.log("this is the user id in form: " + userId);
             $.ajax({
@@ -189,7 +187,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             updateRequests.push(updateRequest);
         });
         
-        // Only process the order after all quantities are updated
         $.when.apply($, updateRequests).then(function() {
             console.log("Process items called - all quantities updated successfully");
             processItemsWithOrderId(cartItems, orderId, userId, date, paymentIntentData);
@@ -197,7 +194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
    
 function processItemsWithOrderId(cartItems, orderId, userId, date, paymentIntentData) {
-    // Create array to track all AJAX requests
+
     var ajaxRequests = [];
     
     cartItems.forEach(function(cartItem) {
@@ -227,7 +224,6 @@ function processItemsWithOrderId(cartItems, orderId, userId, date, paymentIntent
         ajaxRequests.push(request);
     });
     
-    // Wait for all AJAX requests to complete before clearing cart
     $.when.apply($, ajaxRequests).done(function() {
         console.log("All items processed with Order ID: " + orderId);
         console.log("this is the user id in process items: " + userId);
@@ -285,13 +281,12 @@ function processItemsWithOrderId(cartItems, orderId, userId, date, paymentIntent
         }
         });
         
-        // Clear cart only after all requests complete
         $(".cart-grid").find('.cart-item').remove();
         $("#total1").text("Total: $0.00");
         $("#total2").text("$0.00");
         console.log("cart cleared");
         clearCartItems();
-      //  saveFormItemsToLocalStorage([]);
+
         updateCheckoutButton();
         
         setTimeout(function() {

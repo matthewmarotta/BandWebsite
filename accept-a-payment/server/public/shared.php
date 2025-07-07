@@ -2,7 +2,6 @@
 
 require(__DIR__ . '/../vendor/autoload.php');
 
-// If the .env file was not configured properly, display a helpful message.
 if(!file_exists('../.env')) {
   ?>
   <h1>Missing <code>.env</code></h1>
@@ -22,13 +21,9 @@ DOMAIN=http://localhost:4242</pre>
   exit;
 }
 
-// Load `.env` file from the server directory so that
-// environment variables are available in $_ENV or via
-// getenv().
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
 
-// Make sure the configuration file is good.
 if (!$_ENV['STRIPE_SECRET_KEY']) {
   ?>
 

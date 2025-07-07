@@ -23,14 +23,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $conn->begin_transaction();
         
         try {
-            // Generate a secure order ID
+           
             $orderId = "ORDER_" . uniqid() . "_" . bin2hex(random_bytes(4));
             
-            // Commit the transaction
+ 
             $conn->commit();
             
            
-         // Send success response with the generated orderId
             header('Content-Type: application/json');
             echo json_encode([
                 "success" => true,
@@ -39,7 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             ]);
             
         } catch (Exception $e) {
-            // Rollback the transaction in case of error
             $conn->rollback();
             echo json_encode([
                 "success" => false,

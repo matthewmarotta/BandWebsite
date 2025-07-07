@@ -81,7 +81,6 @@ try {
           <!-- Elements will create input elements here -->
         </div>
 
-        <!-- We'll put the error messages in this element -->
         <div id="payment-errors" role="alert"></div>
 
         <button id="submit">Pay</button>

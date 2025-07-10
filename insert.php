@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";
-$username = "movingst_movingst";
-$password = "LmfaoRocksinsocks8%";
-$dbname = "movingst_DB";
+$servername = "localhost"; 
+$username = "root";
+$password = "";
+$dbname = "bandwebsitedatabase2";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     

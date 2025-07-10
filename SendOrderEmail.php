@@ -80,7 +80,7 @@ function generateOrderConfirmationEmail($email_data, $orderId) {
         $mail->Port       = 587;
 
         // Recipients
-        $mail->setFrom($_ENV['MAIL_USERNAME'], 'Moving Stereo');
+        $mail->setFrom('noreply@yourdomain.com', 'Your Band Name');
         $mail->addAddress($email_data[count($email_data) - 1]['Email_Address']);
 
         // Content
@@ -108,7 +108,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             error_log("Connection failed: " . $conn->connect_error);
             die(json_encode(["success" => false, "message" => "Connection failed: " . $conn->connect_error]));
         }
-    
+        
+        $conn->begin_transaction();
+        
+        
+
         try { 
             $orderId = $requestData['orderId'];
 
@@ -144,7 +148,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             
             $stmt->bind_param("ss", $orderId, $requestData['userId']);
             $stmt->execute();
-            $result = $stmt->get_result(); 
+            // Commit the transaction
+            $conn->commit();
+            $result = $stmt->get_result();
 
             $email_data = array();
 

@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost"; 
-$username = "root";
-$password = "";
-$dbname = "bandwebsitedatabase2"; 
+$servername = "localhost";
+$username = "movingst_movingst";
+$password = "LmfaoRocksinsocks8%";
+$dbname = "movingst_DB";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     
@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 throw new Exception($conn->error);
             }
             
-            $stmt->bind_param("iiis", $itemId, $requestData['quantity'], $requestData['itemPrice'], $requestData['orderId']);
+            $stmt->bind_param("iids", $itemId, $requestData['quantity'], $requestData['itemPrice'], $requestData['orderId']);
             $stmt->execute();
            
             if ($stmt->affected_rows <= 0) {

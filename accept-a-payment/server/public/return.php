@@ -81,7 +81,7 @@ function getUserId() {
                     return {
                         imageUrl: item.Image_Url,           
                         itemName: item.Name,               
-                        itemPrice: parseFloat(item.Price),  
+                        itemPrice: parseFloat(item.Price).toFixed(2),   
                         quantity: item.Quantity            
                     };
                 });

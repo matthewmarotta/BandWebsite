@@ -82,6 +82,17 @@ a:hover {
     color: white;
 }
 
+    #merch-title-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#merch-title {
+    text-align: center;
+}
+
 .top-nav-bar-merchpage {
     position: sticky;
     background: black;
@@ -98,7 +109,6 @@ a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('http://localhost/BandWebsite/Images/MOVINGSTEREOBACKDROP1.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -112,6 +122,7 @@ a:hover {
     justify-content: center;
     text-align: center;
 }
+
 /*Styles for the cart*/
 
 
@@ -386,7 +397,7 @@ a:hover {
     justify-content: center;
     padding: 2rem 2rem 2rem 2rem;
     flex-direction: column;
-    background-image: url('http://localhost/BandWebsite/Images/doodle-lines-arrows-circles-and-curves-hand-drawn-design-elements-isolated-on-white-background-for-infographic-illustration-free-vector.jpg');
+    background-image: url('/Images/doodle-lines-arrows-circles-and-curves-hand-drawn-design-elements-isolated-on-white-background-for-infographic-illustration-free-vector.jpg');
     width: 100%;
     background-color:  white;  
 }
@@ -578,6 +589,7 @@ transform: scale(1.1);
 
 .add-to-cart-button-Available:active {
     background-color: black;  
+    color: white !important;
 }
 
 
@@ -612,7 +624,7 @@ transform: scale(1.1);
     justify-content: center;
     padding: 2rem 2rem 2rem 2rem;
     flex-direction: column;
-    background-image: url('http://localhost/BandWebsite/Images/doodle-lines-arrows-circles-and-curves-hand-drawn-design-elements-isolated-on-white-background-for-infographic-illustration-free-vector.jpg');
+    background-image: url('/Images/doodle-lines-arrows-circles-and-curves-hand-drawn-design-elements-isolated-on-white-background-for-infographic-illustration-free-vector.jpg');
     width: 100%;
     background-color:  white;  
 }
@@ -694,7 +706,7 @@ transform: scale(1.1);
     background-color: black;
     color: white;
     border: solid black 0.1rem;
-    margin: 1rem 10rem 0 0rem;
+    margin: 1rem 10rem 0 0rem !important;
     transition: all 0.2s ease;   
 }
 
@@ -773,10 +785,18 @@ transform: scale(1.1);
 /*phone*/
 @media only screen and (max-width: 500px) {
     
-    .Merch-site-header {
-        justify-items: center !important;
-    }
+    #merch-title-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
 
+#merch-title {
+    text-align: center;
+}
+
+ 
     .h1 {
         margin-top: 0rem !important;  
     }
@@ -816,7 +836,7 @@ transform: scale(1.1);
  
     .nav-icon-merch-page {
         width: auto;
-        max-height: 70px !important;
+        max-height: 60px !important;
         margin: 15px 0px 0px 15px !important;
     }
 
@@ -858,13 +878,14 @@ transform: scale(1.1);
     .cart-title {
         margin-right: 50vw;
     }
-
+ 
     .cart-image {
-        margin: 0.5rem;
+        margin: 0.5rem 0.5rem 0.5rem 0.5rem;
     }
 
     .cart-item-name {
         margin: 0.5rem;
+        width: 11rem !important;
     }
 
     .cart-item-price {
@@ -872,8 +893,8 @@ transform: scale(1.1);
     }
     
     .cart-item-quantity {
-        width: 0rem;
-        margin: 0.5rem;
+        width: 1rem;
+        margin-left: 0.5rem;
     }
 
     .fa fa-minus remove-item {
@@ -905,12 +926,37 @@ transform: scale(1.1);
     .grid-image {
        width: 14rem;
     }
-
-    .add-to-cart-button-Available {
-        width: 6rem;
-        height: auto;
+   
+    
+    button {
+    color: black !important;
     }
-
+    
+    .add-to-cart-button-Unavailable {
+        color: grey !important;
+        margin: 0 0 !important;
+    }
+    
+    .add-to-cart-button-Available:active {
+        background-color: black !important; 
+        color: white !important;
+    }
+    
+    
+    
+    .disabled {
+        color: grey !important; 
+        background-color: black !important;
+        border: 0.1rem solid white !important;
+    }
+    
+    .enable:active {
+        background-color: black !important; 
+        color: white !important;
+    }
+    
+ 
+    /*button styles end*/
     .content {
          background-size: contain;
     }
@@ -1009,17 +1055,42 @@ transform: scale(1.1);
     /*end of order confirmation page elements*/
 }
 
-@media only screen and (max-height: 750px) { 
-    .cart-grid {
+/*laptop*/
+@media only screen and (min-width: 1281px) and (max-height: 1080px) { 
+   .cart-grid {
        max-height: 70vh !important;
    }
+    
+    .expanded-cart {
+        max-height: 100vh !important;
+        height: 100vh !important;
+    }
+   
+   .total-checkout-container {
+       bottom: 0 !important;
+   }
+   
+     
+
+    .carousel-image {
+        width: 25vw;
+     }
+
+    #carousel-header {
+    width: 25vw; 
+    }
+
+    #carousel-descriptions {
+        width: 25vw; 
+    }
+
+    .slider 
+    {
+        width: 25vw; 
+    }
+    
+    .grid-image {
+        width: 18rem;
+    }
 }
 
-  
-  
-
-  
-
-  
-    
-    

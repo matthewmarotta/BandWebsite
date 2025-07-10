@@ -76,7 +76,7 @@ $(document).ready(function() {
             for (var i = 0; i < items.length; i++) {
                 $("#grid-image" + (i + 1)).attr("src", items[i].Image_URL);
                 $("#category-header").html("<h2>Results</h2>");
-                $("#item-description" + (i + 1)).html("<p class='item-description'>" + items[i].Name + "</p>");
+                $("#item-description" + (i + 1)).html("<p>" + items[i].Name + "</p>");
                 $("#item-price" + (i + 1)).html("<p class='item-price'>" + "$" + items[i].Price + "</p>");
                 $("#item-availability" + (i + 1)).html(function() {    
                     if(items[i].Availability == 1) {
@@ -105,7 +105,7 @@ $(document).ready(function() {
             for (var i = 0; i < items.length; i++) {
                 $("#grid-image" + (i + 1)).attr("src", items[i].Image_URL);
                 $("#category-header").html("<h2>Results</h2>");
-                $("#item-description" + (i + 1)).html("<p class='item-description'>" + items[i].Name + "</p>");
+                $("#item-description" + (i + 1)).html("<p>" + items[i].Name + "</p>");
                 $("#item-price" + (i + 1)).html("<p class='item-price'>" + "$" + items[i].Price + "</p>");
                 $("#item-availability" + (i + 1)).html(function() {    
                     if(items[i].Availability == 1) {
